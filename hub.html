@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DPC Evidence Hub · Weston College Group</title>
+  <link rel="stylesheet" href="css/hub.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
+</head>
+<body>
+
+<!-- SKIP LINK — WCAG 2.4.1 -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- HEADER -->
+<header class="app-header" role="banner">
+  <div class="header-brand">
+    <a href="index.html" class="header-logo" style="text-decoration:none" aria-label="Back to Digital Pedagogy Coach home">DPC</a>
+    <div>
+      <div class="header-title">Digital Pedagogy Coach</div>
+      <div class="header-sub">Evidence Hub · Weston College Group</div>
+    </div>
+  </div>
+  <div class="json-status" aria-live="polite">
+    <div class="json-dot" id="json-dot" aria-hidden="true"></div>
+    <span id="json-status-text">No file linked</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25)" onclick="loadConfig()">📂 Load Config</button>
+    <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25)" onclick="exportToJSON()">💾 Export</button>
+  </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="app-body">
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+    <nav>
+      <span class="nav-group-label">Overview</span>
+      <button class="nav-item active" onclick="navigateTo('quick-capture')" aria-current="page">
+        <span class="nav-icon" aria-hidden="true">✦</span>
+        Quick Capture
+      </button>
+      <button class="nav-item" onclick="navigateTo('dashboard')">
+        <span class="nav-icon" aria-hidden="true">◈</span>
+        Dashboard
+      </button>
+
+      <span class="nav-group-label">Evidence</span>
+      <button class="nav-item" onclick="navigateTo('evidence-log')">
+        <span class="nav-icon" aria-hidden="true">▤</span>
+        Evidence Log
+      </button>
+      <button class="nav-item" onclick="navigateTo('threads')">
+        <span class="nav-icon" aria-hidden="true">🔗</span>
+        Active Threads
+      </button>
+
+      <span class="nav-group-label">Reporting</span>
+      <button class="nav-item" onclick="navigateTo('hoa-tracker')">
+        <span class="nav-icon" aria-hidden="true">◉</span>
+        HoA Tracker
+      </button>
+      <button class="nav-item" onclick="navigateTo('report-builder')">
+        <span class="nav-icon" aria-hidden="true">⬡</span>
+        Report Builder
+      </button>
+
+      <span class="nav-group-label">Professional</span>
+      <button class="nav-item" onclick="navigateTo('cpd')">
+        <span class="nav-icon" aria-hidden="true">📚</span>
+        CPD & Networking
+      </button>
+
+      <span class="nav-group-label">Administration</span>
+      <button class="nav-item" onclick="navigateTo('settings')">
+        <span class="nav-icon" aria-hidden="true">⚙</span>
+        Settings
+      </button>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="main-content" tabindex="-1">
+
+    <!-- ══ QUICK CAPTURE ══════════════════════════════════════════ -->
+    <section class="page-section active" id="section-quick-capture" aria-labelledby="qc-h2">
+      <div class="page-header">
+        <h2 id="qc-h2">Quick Capture</h2>
+        <p>Log any activity fast. Link it to a thread. Tag it. Save it.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Left: Activity type selector + template form -->
+        <div>
+          <div class="card">
+            <div class="card-title">Select Activity Type</div>
+            <div class="form-group mb-12">
+              <label for="qc-activity-type">What activity are you capturing?</label>
+              <select id="qc-activity-type" onchange="loadTemplate(this.value)">
+                <option value="">— select type —</option>
+                <optgroup label="Meetings">
+                  <option value="meeting-qt">Quality Team Meeting</option>
+                  <option value="meeting-lm">Line Manager 1:1</option>
+                  <option value="meeting-dl">Digital Leads Coaching</option>
+                  <option value="meeting-hoa">Head of Area Meeting</option>
+                  <option value="meeting-exec">Executive Team</option>
+                  <option value="meeting-dd">Digital Development Team</option>
+                  <option value="meeting-external">External / BETT / Conferences</option>
+                </optgroup>
+                <optgroup label="Teach.Meets">
+                  <option value="teachmeet-afl">Teach.Meet — All for Learning</option>
+                  <option value="teachmeet-afe">Teach.Meet — All for Efficiency</option>
+                  <option value="teachmeet-lm">Teach.Meet — Live Modeling</option>
+                  <option value="teachmeet-qa">Teach.Meet — Q+A</option>
+                  <option value="teachmeet-teams">Teach.Meet — Teams</option>
+                  <option value="teachmeet-ai">Teach.Meet — Accessibility & Inclusion</option>
+                  <option value="teachmeet-cl">Teach.Meet — Capturing Learning</option>
+                  <option value="teachmeet-fa">Teach.Meet — Feedback + Assessment</option>
+                  <option value="teachmeet-mon">Teach.Meet — Monitoring</option>
+                  <option value="teachmeet-clar">Teach.Meet — Clarification</option>
+                  <option value="teachmeet-eng">Teach.Meet — Engagement</option>
+                  <option value="teachmeet-21cld">Teach.Meet — 21st Century Learning Design</option>
+                  <option value="teachmeet-udl">Teach.Meet — UDL</option>
+                  <option value="teachmeet-impact">Teach.Meet — Impact</option>
+                </optgroup>
+                <optgroup label="Coaching">
+                  <option value="coaching-group">Coaching — Group</option>
+                  <option value="coaching-1to1">Coaching — 1:1</option>
+                </optgroup>
+                <optgroup label="CPD & Professional">
+                  <option value="cpd-own">CPD — Own Professional Development</option>
+                  <option value="cpd-external">CPD — External Events & Networking</option>
+                </optgroup>
+                <optgroup label="COGs">
+                  <option value="cogs-overview">COGs — Overview Planning</option>
+                  <option value="cogs-session1">COGs — Session 1</option>
+                  <option value="cogs-session2">COGs — Session 2</option>
+                  <option value="cogs-session3">COGs — Session 3</option>
+                  <option value="cogs-session4">COGs — Session 4</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Template form renders here -->
+            <div id="qc-form-container"></div>
+          </div>
+        </div>
+
+        <!-- Right: Tags, threading, evidence -->
+        <div id="qc-right-panel" style="display:none;">
+          <div class="card mb-12">
+            <div class="card-title">Tags</div>
+            <div id="qc-tags-panel">Tags will appear after activity type is selected</div>
+          </div>
+          <div class="card mb-12">
+            <div class="card-title">Link to Thread</div>
+            <div id="qc-thread-panel">Thread selector will appear after activity type is selected</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Evidence Links</div>
+            <div id="qc-evidence-panel">Evidence links will appear after activity type is selected</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DASHBOARD ═════════════════════════════════════════════ -->
+    <section class="page-section" id="section-dashboard" aria-labelledby="dashboard-h2">
+      <div class="page-header">
+        <h2 id="dashboard-h2">Dashboard</h2>
+        <p>Evidence Hub · Digital Pedagogy Coach · Weston College Group</p>
+      </div>
+      <div class="card">
+        <p>Dashboard coming soon. Currently you have <span id="entry-count">0</span> entries logged.</p>
+      </div>
+    </section>
+
+    <!-- ══ EVIDENCE LOG ═════════════════════════════════════════════ -->
+    <section class="page-section" id="section-evidence-log" aria-labelledby="evlog-h2">
+      <div class="page-header">
+        <h2 id="evlog-h2">Evidence Log</h2>
+        <p>All captured entries — filterable by type, area, date, thread, tags.</p>
+      </div>
+      <div class="card">
+        <div id="evidence-log-placeholder">No entries logged yet. Start with Quick Capture above.</div>
+      </div>
+    </section>
+
+    <!-- ══ THREADS ═══════════════════════════════════════════════ -->
+    <section class="page-section" id="section-threads" aria-labelledby="threads-h2">
+      <div class="page-header">
+        <h2 id="threads-h2">Active Threads</h2>
+        <p>Workflow chains connecting activities to impact.</p>
+      </div>
+      <div class="card">
+        <div id="threads-placeholder">No threads yet. Create one when linking an entry to a new thread.</div>
+      </div>
+    </section>
+
+    <!-- ══ HOA TRACKER ══════════════════════════════════════════════ -->
+    <section class="page-section" id="section-hoa-tracker" aria-labelledby="hoa-h2">
+      <div class="page-header">
+        <h2 id="hoa-h2">HoA Tracker</h2>
+        <p>Head of Area Digital Tracker — RAG, actions, training, progress.</p>
+      </div>
+      <div class="card">
+        <div id="hoa-placeholder">HoA Tracker view coming soon.</div>
+      </div>
+    </section>
+
+    <!-- ══ REPORT BUILDER ══════════════════════════════════════════ -->
+    <section class="page-section" id="section-report-builder" aria-labelledby="report-h2">
+      <div class="page-header">
+        <h2 id="report-h2">Report Builder</h2>
+        <p>Filter evidence and generate structured reports for Ben, Neil, Quality Team.</p>
+      </div>
+      <div class="card">
+        <div id="report-placeholder">Report builder coming soon.</div>
+      </div>
+    </section>
+
+    <!-- ══ CPD ═════════════════════════════════════════════════════ -->
+    <section class="page-section" id="section-cpd" aria-labelledby="cpd-h2">
+      <div class="page-header">
+        <h2 id="cpd-h2">CPD & External Networking</h2>
+        <p>Your own professional development — courses, reading, events, networks.</p>
+      </div>
+      <div class="card">
+        <div id="cpd-placeholder">CPD tracker coming soon.</div>
+      </div>
+    </section>
+
+    <!-- ══ SETTINGS ════════════════════════════════════════════════ -->
+    <section class="page-section" id="section-settings" aria-labelledby="settings-h2">
+      <div class="page-header">
+        <h2 id="settings-h2">Settings & Administration</h2>
+        <p>Manage configuration, areas, people, common purposes.</p>
+      </div>
+      <div class="card">
+        <div class="card-title mb-12">Configuration Status</div>
+        <p id="config-status">Configuration not yet loaded. Click "Load Config" in the header.</p>
+      </div>
+      <div class="card mt-16">
+        <div class="card-title mb-12">Curriculum Areas</div>
+        <p id="areas-status">Areas will load from config.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<!-- SCRIPTS -->
+<script src="js/webparts.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/hub.js"></script>
+
+</body>
+</html>
