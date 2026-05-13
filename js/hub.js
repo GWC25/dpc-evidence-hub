@@ -1,238 +1,185 @@
 /**
  * DPC Evidence Hub — hub.js
- * Main app logic: navigation, config loading, form rendering, data persistence
- * Data saved to OneDrive as domain-split JSON files (via export/import)
+ * Navigation, config loading, template rendering, persistence, export
  */
 
 let CONFIG = null;
 let ENTRIES = {};
+let DARK_MODE = localStorage.getItem('dpc-dark-mode') === 'true';
 
-/**
- * NAVIGATION — switch between sections
- */
-function navigateTo(sectionId) {
-  // Hide all sections
-  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
-  // Show selected section
-  const section = document.getElementById(`section-${sectionId}`);
-  if (section) {
-    section.classList.add('active');
-  }
-
-  // Mark nav button as active
-  event.target.closest('.nav-item')?.classList.add('active');
+// ── DARK MODE ────────────────────────────────────────────────────────────────
+function toggleDarkMode() {
+  DARK_MODE = !DARK_MODE;
+  localStorage.setItem('dpc-dark-mode', String(DARK_MODE));
+  document.body.classList.toggle('dark-mode', DARK_MODE);
+  const btn = document.querySelector('.dark-mode-toggle');
+  if (btn) btn.textContent = DARK_MODE ? '☀️ Light mode' : '🌙 Dark mode';
 }
 
-/**
- * LOAD CONFIG — fetch config.json from data folder
- */
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+function navigateTo(sectionId, btn) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.remove('active');
+    n.removeAttribute('aria-current');
+  });
+  const section = document.getElementById(`section-${sectionId}`);
+  if (section) section.classList.add('active');
+  if (btn) { btn.classList.add('active'); btn.setAttribute('aria-current', 'page'); }
+}
+
+// ── LOAD CONFIG ──────────────────────────────────────────────────────────────
 async function loadConfig() {
   try {
-    const response = await fetch('data/config.json');
-    CONFIG = await response.json();
-    
-    // Update settings page
+    const res = await fetch('data/config.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    CONFIG = await res.json();
+
     document.getElementById('config-status').innerHTML = `
-      ✓ Configuration loaded successfully.<br>
-      <strong>${CONFIG.areas?.length || 0} curriculum areas</strong><br>
-      <strong>${CONFIG.templates?.length || 0} templates</strong><br>
-      <strong>${CONFIG.commonPurposes?.length || 0} common purposes</strong>
+      <strong style="color:var(--color-success)">✓ Loaded</strong><br>
+      ${CONFIG.areas?.length || 0} areas · 
+      ${CONFIG.templates?.length || 0} templates · 
+      ${CONFIG.commonPurposes?.length || 0} tags · 
+      ${CONFIG.peopleRegistry?.length || 0} people
     `;
-
-    // Load areas
     loadAreas();
-
     showToast('Configuration loaded', 'success');
   } catch (err) {
-    showToast('Failed to load config: ' + err.message, 'error');
-    console.error(err);
+    showToast('Config load failed: ' + err.message, 'error');
+    console.error('loadConfig error:', err);
   }
 }
 
-/**
- * LOAD AREAS — display curriculum areas in settings
- */
+// ── AREAS IN SETTINGS ────────────────────────────────────────────────────────
 function loadAreas() {
-  if (!CONFIG || !CONFIG.areas) return;
-  
-  const areaCount = CONFIG.areas.length;
-  let areasHtml = `<p><strong>${areaCount} Curriculum Areas</strong></p>`;
-  areasHtml += '<div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:.5rem; font-size:.8rem;">';
-  
-  CONFIG.areas.forEach(area => {
-    areasHtml += `<div style="padding:.5rem; background:#f5f4f0; border-radius:6px;">
-      <strong>${area.code}</strong> — ${area.name}
-    </div>`;
-  });
-  
-  areasHtml += '</div>';
-  document.getElementById('areas-status').innerHTML = areasHtml;
+  if (!CONFIG?.areas) return;
+  const html = CONFIG.areas.map(a =>
+    `<div style="padding:.4rem .6rem;background:var(--color-grey-bg);border-radius:4px;font-size:.8rem;">
+       <strong>${a.code}</strong> — ${a.name}
+     </div>`
+  ).join('');
+  document.getElementById('areas-status').innerHTML =
+    `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.4rem;margin-top:.5rem;">${html}</div>`;
 }
 
-/**
- * LOAD TEMPLATE — when user selects an activity type in Quick Capture
- */
+// ── LOAD TEMPLATE — renders the correct form for the selected activity ────────
 function loadTemplate(templateId) {
-  if (!CONFIG) {
-    showToast('Please load config first', 'error');
-    return;
-  }
+  const container = document.getElementById('qc-form-container');
+  container.innerHTML = '';
 
   if (!templateId) return;
 
-  const template = CONFIG.templates.find(t => t.id === templateId);
-  if (!template) {
-    showToast('Template not found', 'error');
+  if (!CONFIG) {
+    showToast('Load Config first (button in header)', 'error');
+    document.getElementById('qc-activity-type').value = '';
     return;
   }
 
-  // Build the form
+  const template = CONFIG.templates?.find(t => t.id === templateId);
+  if (!template) {
+    showToast(`Template "${templateId}" not found in config`, 'error');
+    return;
+  }
+
   const form = TemplateAssembler.buildForm(template, CONFIG);
-  document.getElementById('qc-form-container').innerHTML = '';
-  document.getElementById('qc-form-container').appendChild(form);
-
-  // Show right panel
-  document.getElementById('qc-right-panel').style.display = 'block';
-
+  container.appendChild(form);
   showToast(`Loaded: ${template.name}`, 'success');
 }
 
-/**
- * SAVE ENTRY — collect form data and prepare for export
- */
+// ── SAVE ENTRY ───────────────────────────────────────────────────────────────
 function saveEntry(templateId) {
-  if (!CONFIG) {
-    showToast('Config not loaded', 'error');
-    return;
-  }
+  if (!CONFIG) { showToast('Config not loaded', 'error'); return; }
 
-  const template = CONFIG.templates.find(t => t.id === templateId);
+  const template = CONFIG.templates?.find(t => t.id === templateId);
   if (!template) return;
 
-  // Build entry object from form
   const entry = buildEntryFromForm(templateId, CONFIG);
-  if (!entry) {
-    showToast('Failed to create entry', 'error');
-    return;
-  }
+  if (!entry) { showToast('Could not build entry', 'error'); return; }
 
-  // Store in memory (will be exported to JSON)
   if (!ENTRIES[templateId]) ENTRIES[templateId] = [];
   ENTRIES[templateId].push(entry);
 
-  // Update entry count
-  const totalEntries = Object.values(ENTRIES).flat().length;
-  document.getElementById('entry-count').textContent = totalEntries;
+  const total = Object.values(ENTRIES).flat().length;
+  const countEl = document.getElementById('entry-count');
+  if (countEl) countEl.textContent = total;
 
-  // Log to evidence log
   logEntryToEvidence(entry, template);
-
   showToast(`Saved: ${template.name}`, 'success');
-  clearFormById(templateId);
+
+  // Reset dropdown and clear form container
+  document.getElementById('qc-activity-type').value = '';
+  document.getElementById('qc-form-container').innerHTML = '';
 }
 
-/**
- * LOG ENTRY TO EVIDENCE LOG VIEW
- */
+// ── EVIDENCE LOG ─────────────────────────────────────────────────────────────
 function logEntryToEvidence(entry, template) {
-  const logContainer = document.getElementById('evidence-log-placeholder');
-  
-  if (logContainer.innerHTML.includes('No entries')) {
-    logContainer.innerHTML = '';
-  }
+  const container = document.getElementById('evidence-log-placeholder');
+  if (container.textContent.includes('No entries')) container.innerHTML = '';
 
-  const logEntry = document.createElement('div');
-  logEntry.className = 'log-entry';
-  logEntry.style.cssText = 'margin-bottom:.5rem; padding:.6rem; background:#f5f4f0; border-radius:6px; border-left:3px solid #1d4e89;';
-  logEntry.innerHTML = `
-    <div class="log-meta">
-      <strong>${template.name}</strong> · 
-      <span style="font-family:var(--font-mono); font-size:.75rem;">
-        ${new Date().toLocaleString()}
-      </span>
+  const item = document.createElement('div');
+  item.className = 'log-entry';
+  item.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+      <strong>${template.name}</strong>
+      <span style="font-family:var(--font-mono);font-size:.75rem;color:var(--color-slate);">${new Date().toLocaleString('en-GB')}</span>
     </div>
-    <div style="font-size:.8rem; color:#4b5563; margin-top:.3rem;">
-      Entry ID: ${entry.id}
-    </div>
+    <div style="font-size:.78rem;color:var(--color-slate);margin-top:.25rem;">ID: ${entry.id}</div>
   `;
-  
-  logContainer.insertBefore(logEntry, logContainer.firstChild);
+  container.insertBefore(item, container.firstChild);
 }
 
-/**
- * CLEAR FORM
- */
+// ── CLEAR FORM ───────────────────────────────────────────────────────────────
 function clearFormById(templateId) {
   const form = document.getElementById(`form-${templateId}`);
-  if (form) {
-    form.querySelectorAll('input, textarea, select').forEach(field => {
-      field.value = '';
-    });
-  }
+  if (!form) return;
+  form.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], textarea, select').forEach(f => f.value = '');
+  form.querySelectorAll('input[type="checkbox"]').forEach(f => f.checked = false);
+  form.querySelectorAll('input[type="range"]').forEach(f => { f.value = 5; });
 }
 
-/**
- * EXPORT TO JSON — prepare entries for OneDrive upload
- * Routes entries to appropriate domain-split files
- */
+// ── EXPORT ───────────────────────────────────────────────────────────────────
 function exportToJSON() {
-  if (Object.keys(ENTRIES).length === 0) {
-    showToast('No entries to export', 'error');
+  if (!Object.keys(ENTRIES).length) {
+    showToast('No entries to export yet', 'error');
     return;
   }
-
-  const exportData = {
+  const data = {
     exportedAt: new Date().toISOString(),
-    entries: ENTRIES,
-    metadata: {
-      totalEntries: Object.values(ENTRIES).flat().length,
-      templates: Object.keys(ENTRIES).map(tId => {
-        const t = CONFIG.templates.find(x => x.id === tId);
-        return t?.name || tId;
-      })
-    }
+    totalEntries: Object.values(ENTRIES).flat().length,
+    entries: ENTRIES
   };
-
-  // Create downloadable JSON
-  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = url;
-  a.download = `dpc-evidence-hub-export-${new Date().toISOString().split('T')[0]}.json`;
+  a.href = URL.createObjectURL(blob);
+  a.download = `dpc-export-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
-
-  showToast('Exported to JSON file. Upload to OneDrive data folder.', 'success');
+  showToast('Export downloaded — upload to OneDrive', 'success');
 }
 
-/**
- * TOAST NOTIFICATIONS
- */
+// ── TOAST ─────────────────────────────────────────────────────────────────────
 function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
   const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.style.cssText = 'padding:.65rem 1rem; border-radius:10px; font-size:.82rem; margin-bottom:.5rem;';
+  toast.style.cssText = `
+    padding:.65rem 1rem;
+    border-radius:8px;
+    font-size:.82rem;
+    margin-bottom:.4rem;
+    color:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+    background:${type === 'success' ? '#15803d' : type === 'error' ? '#b91c1c' : '#0c1f35'};
+  `;
   toast.textContent = message;
-
-  if (type === 'success') toast.style.background = '#15803d';
-  if (type === 'error') toast.style.background = '#b91c1c';
-  if (type === 'info') toast.style.background = '#0c1f35';
-  toast.style.color = '#fff';
-
   container.appendChild(toast);
-
-  // Auto-remove after 3 seconds
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
+  setTimeout(() => toast.remove(), 3200);
 }
 
-/**
- * INITIALIZE APP ON PAGE LOAD
- */
+// ── INIT ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Load config on startup
+  if (DARK_MODE) {
+    document.body.classList.add('dark-mode');
+    const btn = document.querySelector('.dark-mode-toggle');
+    if (btn) btn.textContent = '☀️ Light mode';
+  }
   loadConfig();
 });
