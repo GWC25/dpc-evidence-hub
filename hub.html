@@ -208,14 +208,98 @@
       <div class="page-header">
         <h2 id="settings-h2">Settings &amp; Administration</h2>
       </div>
-      <div class="card" style="margin-bottom:1rem;">
+
+      <!-- Settings tabs -->
+      <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+        <button class="settings-tab active" role="tab" aria-selected="true"  aria-controls="stab-status"    onclick="showSettingsTab('status',this)">Status</button>
+        <button class="settings-tab"        role="tab" aria-selected="false" aria-controls="stab-areas"     onclick="showSettingsTab('areas',this)">Curriculum Areas</button>
+        <button class="settings-tab"        role="tab" aria-selected="false" aria-controls="stab-people"    onclick="showSettingsTab('people',this)">People Registry</button>
+        <button class="settings-tab"        role="tab" aria-selected="false" aria-controls="stab-templates" onclick="showSettingsTab('templates',this)">Templates</button>
+      </div>
+
+      <!-- TAB: Status -->
+      <div class="card settings-tab-panel" id="stab-status">
         <div class="card-title">Configuration Status</div>
         <div id="config-status">Configuration not yet loaded. Click "Load Config" in the header.</div>
       </div>
-      <div class="card">
-        <div class="card-title">Curriculum Areas</div>
-        <div id="areas-status">Areas will load from config.</div>
+
+      <!-- TAB: Curriculum Areas -->
+      <div class="card settings-tab-panel" id="stab-areas" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+          <div class="card-title" style="margin:0;">Curriculum Areas</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="addAreaRow()">+ Add area</button>
+            <button class="btn btn-primary btn-sm"   onclick="saveAreasToConfig()">💾 Save areas</button>
+            <button class="btn btn-secondary btn-sm" onclick="downloadAreasJSON()">⬇ Export areas.json</button>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:var(--color-slate);margin-bottom:1rem;">
+          Edit codes and names. <strong>Save areas</strong> applies to the app immediately.
+          <strong>Export areas.json</strong> → commit to GitHub to make permanent.
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="width:100%;">
+            <thead>
+              <tr>
+                <th style="width:90px;">Code</th>
+                <th>Area Name</th>
+                <th style="width:180px;">Head of Area</th>
+                <th style="width:180px;">Digital Lead</th>
+                <th style="width:44px;"></th>
+              </tr>
+            </thead>
+            <tbody id="areas-editor-tbody"></tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- TAB: People Registry -->
+      <div class="card settings-tab-panel" id="stab-people" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+          <div class="card-title" style="margin:0;">People Registry</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="addPersonRow()">+ Add person</button>
+            <button class="btn btn-primary   btn-sm" onclick="savePeopleToConfig()">💾 Save people</button>
+          </div>
+        </div>
+        <p style="font-size:.82rem;color:var(--color-slate);margin-bottom:1rem;">
+          These names appear in the People Picker checkboxes on relevant templates.
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="width:100%;">
+            <thead>
+              <tr>
+                <th style="width:80px;">ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th style="width:44px;"></th>
+              </tr>
+            </thead>
+            <tbody id="people-editor-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: Templates -->
+      <div class="card settings-tab-panel" id="stab-templates" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+          <div class="card-title" style="margin:0;">Template Editor</div>
+          <button class="btn btn-secondary btn-sm" onclick="downloadConfigJSON()">⬇ Export config.json</button>
+        </div>
+        <p style="font-size:.82rem;color:var(--color-slate);margin-bottom:1rem;">
+          Select a template to edit its fields. Drag to reorder. Check/uncheck to add or remove webparts.
+          <strong>Export config.json</strong> → commit to GitHub to make permanent.
+        </p>
+        <div class="template-builder-layout">
+          <div class="template-builder-list">
+            <div id="template-list-items"></div>
+          </div>
+          <div class="template-builder-editor" id="template-editor-panel">
+            <p style="color:var(--color-slate);font-size:.9rem;">Select a template on the left to edit it.</p>
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
