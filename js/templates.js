@@ -8,7 +8,7 @@
  *   FULL  — date, areaSelector, title (span both columns on wide screens)
  */
 
-const RIGHT_COLUMN_PARTS = new Set(['tags', 'threadLinker', 'evidenceLinks', 'reviewDate', 'actionPoints']);
+const RIGHT_COLUMN_PARTS = new Set(['tags', 'threadLinker', 'evidenceLinks', 'reviewDate']);
 
 const TemplateAssembler = {
 
@@ -106,7 +106,8 @@ const TemplateAssembler = {
         return WebParts.textArea(wpId, 'Planning for Next Session', 3, true, false);
 
       case 'resourceLinks':
-        return WebParts.textArea(wpId, 'Resources Used / Links', 2, false, false);
+      case 'resources':
+        return WebParts.resourceLinks(wpId);
 
       case 'objectives':
         return WebParts.textArea(wpId, 'Objectives / Learning Outcomes', 3, true, false);
@@ -149,6 +150,9 @@ const TemplateAssembler = {
 
       case 'threadLinker':
         return WebParts.threadLinker(wpId);
+
+      case 'resourceUrl':
+        return WebParts.resourceUrl(wpId);
 
       case 'evidenceLinks':
         return WebParts.evidenceLinks(wpId);
