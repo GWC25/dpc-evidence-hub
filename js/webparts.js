@@ -1,387 +1,291 @@
 /**
- * DPC Evidence Hub — Web Parts Library
- * Reusable form components that assemble into different templates
+ * DPC Evidence Hub — webparts.js
+ * Reusable form components — all read from config, no hardcoded data
  * WCAG 2.2 AA compliant
  */
 
 const WebParts = {
-  
-  /**
-   * DATE PICKER — ISO date input
-   */
-  datePicker: (fieldId, label = "Date", required = true) => {
+
+  // ── DATE PICKER ────────────────────────────────────────────────────────────
+  datePicker: (fieldId, label = 'Date', required = true) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
       <label for="${fieldId}">${label}${required ? ' <span class="req" aria-hidden="true">*</span>' : ''}</label>
       <input type="date" id="${fieldId}" ${required ? 'required aria-required="true"' : ''}>
     `;
-    return {
-      container,
-      getValue: () => document.getElementById(fieldId).value,
-      setValue: (val) => { document.getElementById(fieldId).value = val; },
-      clear: () => { document.getElementById(fieldId).value = ''; }
-    };
+    return { container, getValue: () => document.getElementById(fieldId)?.value };
   },
 
-  /**
-   * TEXT INPUT — with optional mic button
-   */
+  // ── NUMBER INPUT ───────────────────────────────────────────────────────────
+  numberInput: (fieldId, label) => {
+    const container = document.createElement('div');
+    container.className = 'form-group';
+    container.innerHTML = `
+      <label for="${fieldId}">${label}</label>
+      <input type="number" id="${fieldId}" min="0" style="max-width:120px;">
+    `;
+    return { container, getValue: () => document.getElementById(fieldId)?.value };
+  },
+
+  // ── TEXT INPUT ─────────────────────────────────────────────────────────────
   textInput: (fieldId, label, required = false, hasMic = false) => {
     const container = document.createElement('div');
     container.className = 'form-group';
-    const micBtn = hasMic ? `<button class="mic-btn" onclick="startDictation('${fieldId}')" aria-label="Dictate ${label}">🎤</button>` : '';
+    const mic = hasMic ? `<button type="button" class="mic-btn" onclick="startDictation('${fieldId}')" aria-label="Dictate ${label}">🎤</button>` : '';
     container.innerHTML = `
       <label for="${fieldId}">${label}${required ? ' <span class="req" aria-hidden="true">*</span>' : ''}</label>
       <div class="input-with-mic">
         <input type="text" id="${fieldId}" ${required ? 'required aria-required="true"' : ''}>
-        ${micBtn}
+        ${mic}
       </div>
     `;
-    return {
-      container,
-      getValue: () => document.getElementById(fieldId).value,
-      setValue: (val) => { document.getElementById(fieldId).value = val; },
-      clear: () => { document.getElementById(fieldId).value = ''; }
-    };
+    return { container, getValue: () => document.getElementById(fieldId)?.value };
   },
 
-  /**
-   * TEXTAREA — multi-line with optional mic button
-   */
+  // ── TEXTAREA ───────────────────────────────────────────────────────────────
   textArea: (fieldId, label, rows = 5, hasMic = false, required = false) => {
     const container = document.createElement('div');
     container.className = 'form-group';
-    const micBtn = hasMic ? `<button class="mic-btn" onclick="startDictation('${fieldId}')" aria-label="Dictate ${label}" style="margin-top:2px">🎤</button>` : '';
+    const mic = hasMic ? `<button type="button" class="mic-btn" onclick="startDictation('${fieldId}')" aria-label="Dictate ${label}">🎤</button>` : '';
     container.innerHTML = `
       <label for="${fieldId}">${label}${required ? ' <span class="req" aria-hidden="true">*</span>' : ''}</label>
-      <div class="input-with-mic" style="align-items: flex-start;">
+      <div class="input-with-mic" style="align-items:flex-start;">
         <textarea id="${fieldId}" rows="${rows}" ${required ? 'required aria-required="true"' : ''}></textarea>
-        ${micBtn}
+        ${mic}
       </div>
     `;
-    return {
-      container,
-      getValue: () => document.getElementById(fieldId).value,
-      setValue: (val) => { document.getElementById(fieldId).value = val; },
-      clear: () => { document.getElementById(fieldId).value = ''; }
-    };
+    return { container, getValue: () => document.getElementById(fieldId)?.value };
   },
 
-  /**
-   * DROPDOWN SELECT — linked to config data (areas, people, etc.)
-   */
-  selectDropdown: (fieldId, label, linkedTo = null, required = false, config = null) => {
+  // ── DROPDOWN SELECT ────────────────────────────────────────────────────────
+  // linkedTo: 'areas' | 'cogsThemes' | null (pass staticOptions array instead)
+  selectDropdown: (fieldId, label, linkedTo = null, required = false, config = null, staticOptions = []) => {
     const container = document.createElement('div');
     container.className = 'form-group';
-    let options = '<option value="">— select —</option>';
-    
-    if (linkedTo === 'areas' && config) {
-      options += config.areas.map(a => `<option value="${a.code}">${a.code} — ${a.name}</option>`).join('');
+    let opts = '<option value="">— select —</option>';
+
+    if (linkedTo === 'areas' && config?.areas) {
+      opts += config.areas.map(a => `<option value="${a.code}">${a.code} — ${a.name}</option>`).join('');
+    } else if (linkedTo === 'cogsThemes' && config?.cogsThemes) {
+      opts += config.cogsThemes.map(t => `<option value="${t}">${t}</option>`).join('');
+    } else if (staticOptions.length) {
+      opts += staticOptions.map(o => `<option value="${o}">${o}</option>`).join('');
     }
-    if (linkedTo === 'commonPurposes' && config) {
-      options += config.commonPurposes.map(cp => `<option value="${cp.id}">${cp.label}</option>`).join('');
-    }
-    
+
     container.innerHTML = `
       <label for="${fieldId}">${label}${required ? ' <span class="req" aria-hidden="true">*</span>' : ''}</label>
-      <select id="${fieldId}" ${required ? 'required aria-required="true"' : ''}>
-        ${options}
-      </select>
+      <select id="${fieldId}" ${required ? 'required aria-required="true"' : ''}>${opts}</select>
     `;
-    return {
-      container,
-      getValue: () => document.getElementById(fieldId).value,
-      setValue: (val) => { document.getElementById(fieldId).value = val; },
-      clear: () => { document.getElementById(fieldId).value = ''; }
-    };
+    return { container, getValue: () => document.getElementById(fieldId)?.value };
   },
 
-  /**
-   * PEOPLE PICKER — multi-select from people registry
-   */
+  // ── PEOPLE PICKER — reads from config.peopleRegistry ─────────────────────
   peoplePicker: (fieldId, label, config = null) => {
     const container = document.createElement('div');
     container.className = 'form-group';
-    let options = '';
-    if (config && config.peopleRegistry) {
-      options = config.peopleRegistry.map(p => `
-        <label class="tag-checkbox-row">
-          <input type="checkbox" value="${p.id}" class="people-picker-checkbox">
-          ${p.name} — ${p.role}
-        </label>
-      `).join('');
-    }
+    const people = config?.peopleRegistry || [];
+    const rows = people.map(p => `
+      <label class="tag-checkbox-row">
+        <input type="checkbox" value="${p.id}" class="people-picker-cb" name="${fieldId}-people">
+        <span>${p.name}${p.role ? ' — <em style="font-weight:400;font-style:normal;color:var(--color-slate)">' + p.role + '</em>' : ''}</span>
+      </label>
+    `).join('');
+
     container.innerHTML = `
       <label>${label}</label>
-      <div id="${fieldId}-group" style="display:flex; flex-direction:column; gap:.3rem;">
-        ${options}
+      <div id="${fieldId}-group" class="people-picker-group">
+        ${rows || '<p style="font-size:.8rem;color:var(--color-slate)">No people in registry — add to config.json</p>'}
       </div>
     `;
     return {
       container,
-      getValue: () => {
-        const checked = container.querySelectorAll('.people-picker-checkbox:checked');
-        return Array.from(checked).map(c => c.value);
-      },
-      setValue: (vals) => {
-        container.querySelectorAll('.people-picker-checkbox').forEach(c => {
-          c.checked = vals.includes(c.value);
-        });
-      },
-      clear: () => {
-        container.querySelectorAll('.people-picker-checkbox').forEach(c => c.checked = false);
-      }
+      getValue: () => Array.from(container.querySelectorAll('.people-picker-cb:checked')).map(c => c.value)
     };
   },
 
-  /**
-   * MOOD/STRESS SLIDERS — 1-10 scales for tracking
-   */
+  // ── MOOD / STRESS / CONFIDENCE SLIDERS ────────────────────────────────────
   moodSliders: (fieldIdPrefix) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-top:.5rem;">
-        <div>
-          <label for="${fieldIdPrefix}-mood" style="display:block; font-size:.75rem; margin-bottom:.5rem;">Mood (1-10)</label>
-          <input type="range" id="${fieldIdPrefix}-mood" min="1" max="10" value="5" style="width:100%;">
-          <span id="${fieldIdPrefix}-mood-val" style="font-size:.7rem; color:#666;">5</span>
-        </div>
-        <div>
-          <label for="${fieldIdPrefix}-stress" style="display:block; font-size:.75rem; margin-bottom:.5rem;">Stress (1-10)</label>
-          <input type="range" id="${fieldIdPrefix}-stress" min="1" max="10" value="5" style="width:100%;">
-          <span id="${fieldIdPrefix}-stress-val" style="font-size:.7rem; color:#666;">5</span>
-        </div>
-        <div>
-          <label for="${fieldIdPrefix}-confidence" style="display:block; font-size:.75rem; margin-bottom:.5rem;">Confidence (1-10)</label>
-          <input type="range" id="${fieldIdPrefix}-confidence" min="1" max="10" value="5" style="width:100%;">
-          <span id="${fieldIdPrefix}-confidence-val" style="font-size:.7rem; color:#666;">5</span>
-        </div>
+      <label>Wellbeing Check-in</label>
+      <div class="sliders-grid">
+        ${['Mood', 'Stress', 'Confidence'].map(name => {
+          const id = `${fieldIdPrefix}-${name.toLowerCase()}`;
+          return `
+            <div class="slider-item">
+              <label for="${id}" style="font-size:.8rem;">${name} (1–10)</label>
+              <div style="display:flex;gap:.5rem;align-items:center;">
+                <input type="range" id="${id}" min="1" max="10" value="5" style="flex:1;" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5">
+                <output id="${id}-val" for="${id}" style="min-width:1.5rem;text-align:right;font-family:var(--font-mono);font-size:.85rem;">5</output>
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
     `;
-    
-    // Update displays on change
-    ['mood', 'stress', 'confidence'].forEach(scale => {
-      const input = container.querySelector(`#${fieldIdPrefix}-${scale}`);
-      const display = container.querySelector(`#${fieldIdPrefix}-${scale}-val`);
-      input.addEventListener('input', () => { display.textContent = input.value; });
+    // Wire live output updates
+    ['mood','stress','confidence'].forEach(s => {
+      const input = container.querySelector(`#${fieldIdPrefix}-${s}`);
+      const out   = container.querySelector(`#${fieldIdPrefix}-${s}-val`);
+      input.addEventListener('input', () => { out.value = input.value; input.setAttribute('aria-valuenow', input.value); });
     });
-    
     return {
       container,
       getValue: () => ({
-        mood: parseInt(document.getElementById(`${fieldIdPrefix}-mood`).value),
-        stress: parseInt(document.getElementById(`${fieldIdPrefix}-stress`).value),
-        confidence: parseInt(document.getElementById(`${fieldIdPrefix}-confidence`).value)
-      }),
-      setValue: (obj) => {
-        if (obj.mood) document.getElementById(`${fieldIdPrefix}-mood`).value = obj.mood;
-        if (obj.stress) document.getElementById(`${fieldIdPrefix}-stress`).value = obj.stress;
-        if (obj.confidence) document.getElementById(`${fieldIdPrefix}-confidence`).value = obj.confidence;
-      },
-      clear: () => {
-        ['mood', 'stress', 'confidence'].forEach(scale => {
-          document.getElementById(`${fieldIdPrefix}-${scale}`).value = 5;
-          document.getElementById(`${fieldIdPrefix}-${scale}-val`).textContent = '5';
-        });
-      }
+        mood:       parseInt(document.getElementById(`${fieldIdPrefix}-mood`)?.value),
+        stress:     parseInt(document.getElementById(`${fieldIdPrefix}-stress`)?.value),
+        confidence: parseInt(document.getElementById(`${fieldIdPrefix}-confidence`)?.value)
+      })
     };
   },
 
-  /**
-   * PREVIOUS ACTIONS (LOCKED & TICKABLE) — auto-filled from prior meeting
-   */
+  // ── PREVIOUS ACTIONS — locked & tickable ──────────────────────────────────
   previousActionsLocked: (fieldId, previousActions = []) => {
     const container = document.createElement('div');
     container.className = 'form-group';
-    let html = `<label>${previousActions.length > 0 ? 'Previous Actions (locked, tickable)' : 'No previous actions'}</label>`;
-    if (previousActions.length > 0) {
-      html += '<div style="background:#f5f4f0; padding:.6rem; border-radius:6px; border-left:3px solid #d6d3cb;">';
-      previousActions.forEach((action, idx) => {
-        html += `
-          <label class="tag-checkbox-row" style="margin-bottom:.3rem;">
-            <input type="checkbox" value="${action}" class="prev-action-checkbox">
-            <span style="font-size:.8rem; color:#1a1916;">${action}</span>
-          </label>
-        `;
-      });
-      html += '</div>';
+    if (!previousActions.length) {
+      container.innerHTML = `<p class="prev-actions-empty">No previous actions</p>`;
+    } else {
+      container.innerHTML = `
+        <label>Previous Actions <span style="font-size:.75rem;font-weight:400;">(locked — tick to mark complete)</span></label>
+        <div class="prev-actions-list">
+          ${previousActions.map(a => `
+            <label class="tag-checkbox-row prev-action-item">
+              <input type="checkbox" class="prev-action-cb" value="${a}">
+              <span>${a}</span>
+            </label>
+          `).join('')}
+        </div>
+      `;
     }
-    container.innerHTML = html;
     return {
       container,
-      getValue: () => {
-        const checked = container.querySelectorAll('.prev-action-checkbox:checked');
-        return Array.from(checked).map(c => c.value);
-      },
-      clear: () => {
-        container.querySelectorAll('.prev-action-checkbox').forEach(c => c.checked = false);
-      }
+      getValue: () => Array.from(container.querySelectorAll('.prev-action-cb:checked')).map(c => c.value)
     };
   },
 
-  /**
-   * ACTION POINTS — structured list with deadline, who, support
-   */
+  // ── ACTION POINTS ──────────────────────────────────────────────────────────
   actionPoints: (fieldId) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
       <label>Action Points / Next Steps</label>
-      <div id="${fieldId}-list" style="margin-bottom:.5rem;">
-        <div class="action-point-row" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:.5rem; padding:.5rem; background:#f5f4f0; border-radius:6px; margin-bottom:.4rem;">
-          <input type="text" class="action-text" placeholder="Action..." style="font-size:.8rem;">
-          <input type="date" class="action-date" style="font-size:.8rem;">
-          <input type="text" class="action-who" placeholder="Who..." style="font-size:.8rem;">
-          <input type="text" class="action-support" placeholder="Support needed..." style="font-size:.8rem;">
-          <button class="btn btn-icon btn-sm" onclick="removeActionRow(this)" aria-label="Remove action">✕</button>
-        </div>
+      <div id="${fieldId}-list">
+        ${WebParts._actionRow()}
       </div>
-      <button class="btn btn-secondary btn-sm" onclick="addActionRow('${fieldId}-list')">+ Add action</button>
+      <button type="button" class="btn btn-secondary btn-sm" style="margin-top:.5rem;" onclick="addActionRow('${fieldId}-list')">+ Add action</button>
     `;
     return {
       container,
-      getValue: () => {
-        const rows = container.querySelectorAll('.action-point-row');
-        return Array.from(rows).map(row => ({
-          action: row.querySelector('.action-text').value,
-          deadline: row.querySelector('.action-date').value,
-          who: row.querySelector('.action-who').value,
-          support: row.querySelector('.action-support').value
-        })).filter(a => a.action);
-      },
-      clear: () => {
-        const list = container.querySelector(`#${fieldId}-list`);
-        list.innerHTML = `
-          <div class="action-point-row" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:.5rem; padding:.5rem; background:#f5f4f0; border-radius:6px; margin-bottom:.4rem;">
-            <input type="text" class="action-text" placeholder="Action..." style="font-size:.8rem;">
-            <input type="date" class="action-date" style="font-size:.8rem;">
-            <input type="text" class="action-who" placeholder="Who..." style="font-size:.8rem;">
-            <input type="text" class="action-support" placeholder="Support needed..." style="font-size:.8rem;">
-            <button class="btn btn-icon btn-sm" onclick="removeActionRow(this)" aria-label="Remove action">✕</button>
-          </div>
-        `;
-      }
+      getValue: () => Array.from(container.querySelectorAll('.action-point-row')).map(row => ({
+        action:   row.querySelector('.action-text')?.value,
+        deadline: row.querySelector('.action-date')?.value,
+        who:      row.querySelector('.action-who')?.value,
+        support:  row.querySelector('.action-support')?.value
+      })).filter(a => a.action)
     };
   },
 
-  /**
-   * TAG PICKER — three-tier (themes, Ofsted, DTPF, KPIs, accountability)
-   */
-  tagPicker: (fieldId, config = null, preSelectedTags = []) => {
+  _actionRow: () => `
+    <div class="action-point-row">
+      <input type="text"  class="action-text"    placeholder="Action…">
+      <input type="date"  class="action-date">
+      <input type="text"  class="action-who"     placeholder="Who…">
+      <input type="text"  class="action-support" placeholder="Support needed…">
+      <button type="button" class="btn btn-icon btn-sm" onclick="removeActionRow(this)" aria-label="Remove action">✕</button>
+    </div>
+  `,
+
+  // ── TAG PICKER — reads from config.commonPurposes ─────────────────────────
+  tagPicker: (fieldId, config = null, preSelected = []) => {
     const container = document.createElement('div');
     container.className = 'form-group';
+    const purposes = config?.commonPurposes || [];
+
+    // Group by category
+    const grouped = {};
+    purposes.forEach(cp => {
+      if (!grouped[cp.category]) grouped[cp.category] = [];
+      grouped[cp.category].push(cp);
+    });
+
+    const rows = Object.entries(grouped).map(([cat, items]) => `
+      <div class="tag-category">
+        <div class="tag-category-label">${cat}</div>
+        <div class="tag-options">
+          ${items.map(cp => `
+            <label class="tag-option ${preSelected.includes(cp.id) ? 'selected' : ''}">
+              <input type="checkbox" class="tag-cb" value="${cp.id}" name="${fieldId}-tags" ${preSelected.includes(cp.id) ? 'checked' : ''}>
+              ${cp.label}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
     container.innerHTML = `
       <label>Tags</label>
-      <button class="btn btn-secondary btn-sm" id="${fieldId}-btn" onclick="openTagPicker()">🏷 Tags</button>
-      <div id="${fieldId}-chips" class="flex flex-wrap gap-4" style="margin-top:.5rem;" aria-live="polite"></div>
+      <div id="${fieldId}-tags-panel" class="tags-panel">${rows || '<p style="font-size:.8rem;color:var(--color-slate)">No tags in config</p>'}</div>
     `;
     return {
       container,
-      getValue: () => {
-        const tags = container.querySelectorAll('.tag.selected');
-        return Array.from(tags).map(t => t.dataset.tagId);
-      },
-      setValue: (tagIds) => {
-        // To be wired to tag picker modal
-      },
-      setSelectedTags: (tagIds) => {
-        const chips = container.querySelector(`#${fieldId}-chips`);
-        chips.innerHTML = tagIds.map(tId => {
-          const tag = config?.commonPurposes.find(cp => cp.id === tId);
-          return `<span class="badge">${tag?.label || tId}</span>`;
-        }).join('');
-      },
-      clear: () => {
-        container.querySelector(`#${fieldId}-chips`).innerHTML = '';
-      }
+      getValue: () => Array.from(container.querySelectorAll('.tag-cb:checked')).map(c => c.value)
     };
   },
 
-  /**
-   * THREAD LINKER — link to existing workflow thread or create new
-   */
+  // ── THREAD LINKER ──────────────────────────────────────────────────────────
   threadLinker: (fieldId) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
       <label for="${fieldId}">Link to Thread / Workflow</label>
       <select id="${fieldId}">
-        <option value="">— not linked to a thread —</option>
+        <option value="">— not linked —</option>
       </select>
       <label class="tag-checkbox-row" style="margin-top:.5rem;">
         <input type="checkbox" id="${fieldId}-new" onchange="toggleNewThreadInput('${fieldId}')">
-        Or start a new workflow thread
+        Start a new thread
       </label>
-      <div id="${fieldId}-new-row" style="display:none; margin-top:.5rem;">
-        <div class="form-group">
-          <label for="${fieldId}-new-name">Thread name</label>
-          <input type="text" id="${fieldId}-new-name" placeholder="e.g. ENG · Thanos Adamos · Coaching · Apr 2026">
-        </div>
+      <div id="${fieldId}-new-row" style="display:none;margin-top:.5rem;">
+        <input type="text" id="${fieldId}-new-name" placeholder="e.g. ENG · Coaching · May 2026" style="width:100%;">
       </div>
     `;
     return {
       container,
-      getValue: () => {
-        const isNew = document.getElementById(`${fieldId}-new`).checked;
-        return {
-          threadId: isNew ? null : document.getElementById(fieldId).value,
-          newThreadName: isNew ? document.getElementById(`${fieldId}-new-name`).value : null
-        };
-      },
-      clear: () => {
-        document.getElementById(fieldId).value = '';
-        document.getElementById(`${fieldId}-new`).checked = false;
-        document.getElementById(`${fieldId}-new-row`).style.display = 'none';
-        document.getElementById(`${fieldId}-new-name`).value = '';
-      }
+      getValue: () => ({
+        threadId: document.getElementById(`${fieldId}-new`)?.checked ? null : document.getElementById(fieldId)?.value,
+        newThreadName: document.getElementById(`${fieldId}-new`)?.checked ? document.getElementById(`${fieldId}-new-name`)?.value : null
+      })
     };
   },
 
-  /**
-   * EVIDENCE LINKS — file, recording, screenshot, link
-   */
+  // ── EVIDENCE LINKS ─────────────────────────────────────────────────────────
   evidenceLinks: (fieldId) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
       <label>Evidence Links</label>
-      <p style="font-size:.8rem; color:#4b5563; margin-bottom:.5rem;">SharePoint files, Teams recordings, screenshots, outputs…</p>
-      <div id="${fieldId}-list" style="margin-bottom:.5rem;"></div>
-      <button class="btn btn-secondary btn-sm" onclick="addEvidenceLink('${fieldId}-list')">+ Add link</button>
+      <p style="font-size:.78rem;color:var(--color-slate);margin-bottom:.4rem;">SharePoint files, Teams recordings, screenshots…</p>
+      <div id="${fieldId}-list"></div>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="addEvidenceLink('${fieldId}-list')">+ Add link</button>
     `;
     return {
       container,
-      getValue: () => {
-        const rows = container.querySelectorAll('.evidence-link-row');
-        return Array.from(rows).map(row => ({
-          url: row.querySelector('.evidence-url').value,
-          label: row.querySelector('.evidence-label').value
-        })).filter(e => e.url);
-      },
-      clear: () => {
-        document.getElementById(`${fieldId}-list`).innerHTML = '';
-      }
+      getValue: () => Array.from(container.querySelectorAll('.evidence-link-row')).map(row => ({
+        url:   row.querySelector('.evidence-url')?.value,
+        label: row.querySelector('.evidence-label')?.value
+      })).filter(e => e.url)
     };
   }
 
 };
 
-// HELPER FUNCTIONS FOR WEB PARTS
+// ── GLOBAL HELPERS ────────────────────────────────────────────────────────────
+
 function addActionRow(containerId) {
-  const container = document.getElementById(containerId);
-  const newRow = document.createElement('div');
-  newRow.className = 'action-point-row';
-  newRow.style.cssText = 'display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:.5rem; padding:.5rem; background:#f5f4f0; border-radius:6px; margin-bottom:.4rem;';
-  newRow.innerHTML = `
-    <input type="text" class="action-text" placeholder="Action..." style="font-size:.8rem;">
-    <input type="date" class="action-date" style="font-size:.8rem;">
-    <input type="text" class="action-who" placeholder="Who..." style="font-size:.8rem;">
-    <input type="text" class="action-support" placeholder="Support needed..." style="font-size:.8rem;">
-    <button class="btn btn-icon btn-sm" onclick="removeActionRow(this)" aria-label="Remove action">✕</button>
-  `;
-  container.appendChild(newRow);
+  document.getElementById(containerId).insertAdjacentHTML('beforeend', WebParts._actionRow());
 }
 
 function removeActionRow(btn) {
@@ -389,31 +293,36 @@ function removeActionRow(btn) {
 }
 
 function toggleNewThreadInput(fieldId) {
-  const checkbox = document.getElementById(`${fieldId}-new`);
-  const newRow = document.getElementById(`${fieldId}-new-row`);
-  const select = document.getElementById(fieldId);
-  newRow.style.display = checkbox.checked ? 'block' : 'none';
-  select.disabled = checkbox.checked;
-  if (checkbox.checked) select.value = '';
+  const cb    = document.getElementById(`${fieldId}-new`);
+  const row   = document.getElementById(`${fieldId}-new-row`);
+  const sel   = document.getElementById(fieldId);
+  row.style.display = cb.checked ? 'block' : 'none';
+  sel.disabled = cb.checked;
 }
 
 function addEvidenceLink(containerId) {
-  const container = document.getElementById(containerId);
-  const newRow = document.createElement('div');
-  newRow.className = 'evidence-link-row';
-  newRow.style.cssText = 'display:grid; grid-template-columns:2fr 1fr auto; gap:.5rem; padding:.5rem; background:#f5f4f0; border-radius:6px; margin-bottom:.4rem;';
-  newRow.innerHTML = `
-    <input type="url" class="evidence-url" placeholder="https://..." style="font-size:.8rem;">
-    <input type="text" class="evidence-label" placeholder="Label..." style="font-size:.8rem;">
-    <button class="btn btn-icon btn-sm" onclick="this.closest('.evidence-link-row').remove()" aria-label="Remove link">✕</button>
+  const div = document.createElement('div');
+  div.className = 'evidence-link-row';
+  div.innerHTML = `
+    <input type="url"  class="evidence-url"   placeholder="https://…">
+    <input type="text" class="evidence-label" placeholder="Label…">
+    <button type="button" class="btn btn-icon btn-sm" onclick="this.closest('.evidence-link-row').remove()" aria-label="Remove">✕</button>
   `;
-  container.appendChild(newRow);
+  document.getElementById(containerId).appendChild(div);
 }
 
 function startDictation(fieldId) {
-  // Placeholder — integrate with Web Speech API
-  const btn = event.target;
-  btn.classList.add('recording');
-  btn.textContent = '⏹';
-  // On stop: remove 'recording' class, revert text to 🎤
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Speech recognition not supported in this browser.');
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SR();
+  recognition.lang = 'en-GB';
+  recognition.interimResults = false;
+  recognition.onresult = (e) => {
+    const el = document.getElementById(fieldId);
+    if (el) el.value += (el.value ? ' ' : '') + e.results[0][0].transcript;
+  };
+  recognition.start();
 }
