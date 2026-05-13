@@ -1,121 +1,180 @@
 /**
- * DPC Evidence Hub — Template Assembler
+ * DPC Evidence Hub — templates.js
  * Builds forms from config.json template definitions + web parts
+ *
+ * COLUMN LOGIC:
+ *   LEFT  — all capture fields (notes, people, sliders, attendees, etc.)
+ *   RIGHT — always: tags, threadLinker, evidenceLinks, actionPoints, reviewDate
+ *   FULL  — date, areaSelector, title (span both columns on wide screens)
  */
+
+const RIGHT_COLUMN_PARTS = new Set(['tags', 'threadLinker', 'evidenceLinks', 'reviewDate', 'actionPoints']);
 
 const TemplateAssembler = {
 
-  /**
-   * Build a form from a template definition
-   * @param {Object} template - template definition from config.json
-   * @param {Object} config - entire config.json
-   * @returns {HTMLElement} - assembled form container
-   */
   buildForm: (template, config) => {
     const form = document.createElement('div');
     form.id = `form-${template.id}`;
     form.className = 'template-form';
-    form.style.cssText = 'display:grid; grid-template-columns:2fr 1fr; gap:1rem;';
 
-    const leftColumn = document.createElement('div');
-    const rightColumn = document.createElement('div');
+    // Header row — date + area always full width at top
+    const headerRow = document.createElement('div');
+    headerRow.className = 'form-header-row';
 
-    // Build left column (main capture fields)
-    const leftWebParts = template.webParts.slice(0, Math.ceil(template.webParts.length / 2));
-    leftWebParts.forEach(wpId => {
+    // Left column — main capture fields
+    const left = document.createElement('div');
+    left.className = 'form-col-left';
+
+    // Right column — tags, thread, evidence, actions
+    const right = document.createElement('div');
+    right.className = 'form-col-right';
+
+    template.webParts.forEach(wpId => {
       const wp = TemplateAssembler.renderWebPart(wpId, template, config);
-      if (wp) leftColumn.appendChild(wp.container);
+      if (!wp) return;
+
+      if (wpId === 'date' || wpId === 'areaSelector') {
+        headerRow.appendChild(wp.container);
+      } else if (RIGHT_COLUMN_PARTS.has(wpId)) {
+        right.appendChild(wp.container);
+      } else {
+        left.appendChild(wp.container);
+      }
     });
 
-    // Build right column (tags, thread linker, save)
-    const rightWebParts = template.webParts.slice(Math.ceil(template.webParts.length / 2));
-    rightWebParts.forEach(wpId => {
-      const wp = TemplateAssembler.renderWebPart(wpId, template, config);
-      if (wp) rightColumn.appendChild(wp.container);
-    });
-
-    form.appendChild(leftColumn);
-    form.appendChild(rightColumn);
-
-    // Add save buttons at bottom
-    const buttons = document.createElement('div');
-    buttons.style.cssText = 'grid-column:1/3; display:flex; gap:.5rem; margin-top:1rem;';
-    buttons.innerHTML = `
+    // Save / clear buttons
+    const btnRow = document.createElement('div');
+    btnRow.className = 'form-btn-row';
+    btnRow.innerHTML = `
       <button class="btn btn-primary" onclick="saveEntry('${template.id}')">✦ Save entry</button>
-      <button class="btn btn-secondary" onclick="clearForm('${template.id}')">Clear</button>
+      <button class="btn btn-secondary" onclick="clearFormById('${template.id}')">Clear</button>
     `;
-    form.appendChild(buttons);
+
+    // Only append non-empty sections
+    if (headerRow.children.length) form.appendChild(headerRow);
+    form.appendChild(left);
+    if (right.children.length) form.appendChild(right);
+    form.appendChild(btnRow);
 
     return form;
   },
 
-  /**
-   * Render a single web part based on its ID and type
-   */
   renderWebPart: (wpId, template, config) => {
-    const wpDef = config.webParts[wpId];
-    if (!wpDef) return null;
+    const wpDef = config.webParts ? config.webParts[wpId] : null;
+    // Use fallback label if wpDef missing
+    const label = wpDef?.label || wpId;
 
-    let wp = null;
+    switch (wpId) {
+      case 'date':
+        return WebParts.datePicker(wpId, 'Date', true);
 
-    // Route to correct web part based on type
-    if (wpId === 'date') {
-      wp = WebParts.datePicker(wpId, wpDef.label, wpDef.required);
-    } else if (wpId === 'title') {
-      wp = WebParts.textInput(wpId, wpDef.label, wpDef.required, wpDef.hasMic);
-    } else if (wpId === 'newNotes' || wpId === 'keyPoints' || wpId === 'notes') {
-      wp = WebParts.textArea(wpId, wpDef.label, 5, wpDef.hasMic, wpDef.required);
-    } else if (wpId === 'areaSelector') {
-      wp = WebParts.selectDropdown(wpId, wpDef.label, 'areas', false, config);
-    } else if (wpId === 'peoplePicker') {
-      wp = WebParts.peoplePicker(wpId, wpDef.label, config);
-    } else if (wpId === 'attendeesTable') {
-      wp = TemplateAssembler.attendeesTable(wpId, config);
-    } else if (wpId === 'moodSliders') {
-      wp = WebParts.moodSliders(wpId);
-    } else if (wpId === 'previousActions') {
-      wp = WebParts.previousActionsLocked(wpId, []);
-    } else if (wpId === 'actionPoints') {
-      wp = WebParts.actionPoints(wpId);
-    } else if (wpId === 'tags') {
-      wp = WebParts.tagPicker(wpId, config, template.defaultTags);
-    } else if (wpId === 'threadLinker') {
-      wp = WebParts.threadLinker(wpId);
-    } else if (wpId === 'evidenceLinks') {
-      wp = WebParts.evidenceLinks(wpId);
-    } else if (wpId === 'coachingPrompt' || wpId === 'reflectionNotes' || wpId === 'resourceLinks' || wpId === 'planningNotes') {
-      wp = WebParts.textArea(wpId, wpDef.label, 3, wpDef.hasMic, wpDef.required || false);
-    } else if (wpId === 'reviewDate') {
-      wp = WebParts.datePicker(wpId, 'Review Date', false);
-    } else if (wpId === 'location' || wpId === 'provider' || wpId === 'eventType') {
-      wp = WebParts.textInput(wpId, wpDef.label, false, false);
+      case 'title':
+        return WebParts.textInput(wpId, label, false, true);
+
+      case 'location':
+      case 'provider':
+      case 'targetAudience':
+      case 'attendees':
+      case 'duration':
+        return WebParts.textInput(wpId, label, false, false);
+
+      case 'eventType':
+        return WebParts.selectDropdown(wpId, label, null, false, config, [
+          'Conference', 'Workshop', 'Networking', 'Training', 'Other'
+        ]);
+
+      case 'areaSelector':
+        return WebParts.selectDropdown(wpId, 'Curriculum Area', 'areas', false, config);
+
+      case 'peoplePicker':
+        return WebParts.peoplePicker(wpId, 'People', config);
+
+      case 'attendeesTable':
+        return TemplateAssembler.attendeesTable(wpId);
+
+      case 'keyPoints':
+      case 'newNotes':
+        return WebParts.textArea(wpId, label, 5, true, false);
+
+      case 'coachingPrompt':
+        return WebParts.textArea(wpId, 'Coaching Question / Prompt', 3, true, false);
+
+      case 'reflectionNotes':
+        return WebParts.textArea(wpId, 'Reflection', 3, true, false);
+
+      case 'planningNotes':
+        return WebParts.textArea(wpId, 'Planning for Next Session', 3, true, false);
+
+      case 'resourceLinks':
+        return WebParts.textArea(wpId, 'Resources Used / Links', 2, false, false);
+
+      case 'objectives':
+        return WebParts.textArea(wpId, 'Objectives / Learning Outcomes', 3, true, false);
+
+      case 'sessionPlan':
+        return WebParts.textArea(wpId, 'Session Plan & Delivery Notes', 4, true, false);
+
+      case 'learningTakeaway':
+        return WebParts.textArea(wpId, 'Key Learning Takeaway', 3, true, false);
+
+      case 'applicationPlan':
+        return WebParts.textArea(wpId, 'How You\'ll Apply This', 3, true, false);
+
+      case 'networkingNotes':
+        return WebParts.textArea(wpId, 'Networking Notes & Contacts', 3, true, false);
+
+      case 'learningOutcomes':
+        return WebParts.textArea(wpId, 'Expected Learning Outcomes', 3, true, false);
+
+      case 'cogsTheme':
+        return WebParts.selectDropdown(wpId, 'COGs Theme', 'cogsThemes', false, config);
+
+      case 'moodSliders':
+        return WebParts.moodSliders(wpId);
+
+      case 'previousActions':
+        return WebParts.previousActionsLocked(wpId, []);
+
+      case 'actionPoints':
+        return WebParts.actionPoints(wpId);
+
+      case 'attendeeCount':
+        return WebParts.numberInput(wpId, 'Number of Attendees');
+
+      case 'sessionNumber':
+        return null; // auto-populated, not shown
+
+      case 'tags':
+        return WebParts.tagPicker(wpId, config, template.defaultTags || []);
+
+      case 'threadLinker':
+        return WebParts.threadLinker(wpId);
+
+      case 'evidenceLinks':
+        return WebParts.evidenceLinks(wpId);
+
+      case 'reviewDate':
+        return WebParts.datePicker(wpId, 'Review / Follow-up Date', false);
+
+      default:
+        // Unknown webpart — render a plain textarea as fallback
+        return WebParts.textArea(wpId, wpId, 3, false, false);
     }
-
-    return wp;
   },
 
-  /**
-   * ATTENDEES TABLE — multi-row table with name + role
-   */
-  attendeesTable: (fieldId, config) => {
+  attendeesTable: (fieldId) => {
     const container = document.createElement('div');
     container.className = 'form-group';
     container.innerHTML = `
       <label>Attendees</label>
-      <div id="${fieldId}-table" style="overflow-x:auto; margin-bottom:.5rem;">
+      <div style="overflow-x:auto; margin-bottom:.5rem;">
         <table class="data-table" style="width:100%;">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Role (optional)</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>Name</th><th>Role (optional)</th><th></th></tr></thead>
           <tbody id="${fieldId}-rows">
             <tr class="attendee-row">
-              <td><input type="text" class="attendee-name" placeholder="Name" style="font-size:.8rem; width:100%;"></td>
-              <td><input type="text" class="attendee-role" placeholder="Role" style="font-size:.8rem; width:100%;"></td>
-              <td><button class="btn btn-icon btn-sm" onclick="removeAttendeeRow(this)">✕</button></td>
+              <td><input type="text" class="attendee-name" placeholder="Name"></td>
+              <td><input type="text" class="attendee-role" placeholder="Role"></td>
+              <td><button class="btn btn-icon btn-sm" onclick="removeAttendeeRow(this)" aria-label="Remove">✕</button></td>
             </tr>
           </tbody>
         </table>
@@ -125,47 +184,34 @@ const TemplateAssembler = {
     return {
       container,
       getValue: () => {
-        const rows = container.querySelectorAll('.attendee-row');
-        return Array.from(rows).map(row => ({
+        return Array.from(container.querySelectorAll('.attendee-row')).map(row => ({
           name: row.querySelector('.attendee-name').value,
           role: row.querySelector('.attendee-role').value
         })).filter(a => a.name);
-      },
-      clear: () => {
-        const tbody = container.querySelector(`#${fieldId}-rows`);
-        tbody.innerHTML = `
-          <tr class="attendee-row">
-            <td><input type="text" class="attendee-name" placeholder="Name" style="font-size:.8rem; width:100%;"></td>
-            <td><input type="text" class="attendee-role" placeholder="Role" style="font-size:.8rem; width:100%;"></td>
-            <td><button class="btn btn-icon btn-sm" onclick="removeAttendeeRow(this)">✕</button></td>
-          </tr>
-        `;
       }
     };
   }
 
 };
 
-// ATTENDEE TABLE HELPERS
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+
 function addAttendeeRow(tbodyId) {
   const tbody = document.getElementById(tbodyId);
-  const newRow = document.createElement('tr');
-  newRow.className = 'attendee-row';
-  newRow.innerHTML = `
-    <td><input type="text" class="attendee-name" placeholder="Name" style="font-size:.8rem; width:100%;"></td>
-    <td><input type="text" class="attendee-role" placeholder="Role" style="font-size:.8rem; width:100%;"></td>
-    <td><button class="btn btn-icon btn-sm" onclick="removeAttendeeRow(this)">✕</button></td>
+  const row = document.createElement('tr');
+  row.className = 'attendee-row';
+  row.innerHTML = `
+    <td><input type="text" class="attendee-name" placeholder="Name"></td>
+    <td><input type="text" class="attendee-role" placeholder="Role"></td>
+    <td><button class="btn btn-icon btn-sm" onclick="removeAttendeeRow(this)" aria-label="Remove">✕</button></td>
   `;
-  tbody.appendChild(newRow);
+  tbody.appendChild(row);
 }
 
 function removeAttendeeRow(btn) {
   btn.closest('tr').remove();
 }
 
-/**
- * Build a quick-capture entry object from form values
- */
 function buildEntryFromForm(templateId, config) {
   const form = document.getElementById(`form-${templateId}`);
   if (!form) return null;
@@ -177,11 +223,9 @@ function buildEntryFromForm(templateId, config) {
     data: {}
   };
 
-  // Collect all form values — this is simplified; in production, we'd iterate web parts properly
-  const inputs = form.querySelectorAll('input, textarea, select');
-  inputs.forEach(input => {
-    if (input.id) {
-      entry.data[input.id] = input.value;
+  form.querySelectorAll('input, textarea, select').forEach(el => {
+    if (el.id) {
+      entry.data[el.id] = el.type === 'checkbox' ? el.checked : el.value;
     }
   });
 
