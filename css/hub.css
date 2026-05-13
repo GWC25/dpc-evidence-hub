@@ -759,3 +759,247 @@ button:focus-visible {
     border: 1px solid #ccc;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DARK MODE
+   ═══════════════════════════════════════════════════════════════════════ */
+
+body.dark-mode {
+  --color-navy:       #dce8f5;
+  --color-slate:      #9fb3c8;
+  --color-grey:       #6b7d8f;
+  --color-grey-light: #2a3a4a;
+  --color-grey-bg:    #162030;
+  --color-cream:      #0d1520;
+  --color-primary:    #5b9bd5;
+  --color-primary-dark: #3a7cbf;
+}
+
+body.dark-mode .app-header {
+  background: linear-gradient(135deg, #060e18 0%, #0d2040 100%);
+}
+
+body.dark-mode .card {
+  background: #162030;
+  border-color: #2a3a4a;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: #0d1a27;
+  border-color: #2a3a4a;
+  color: #dce8f5;
+}
+
+body.dark-mode .data-table thead {
+  background: #1a2d40;
+}
+
+body.dark-mode .prev-actions-list {
+  background: #1a2d40;
+  border-left-color: #2a3a4a;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DARK MODE TOGGLE BUTTON (in header)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.dark-mode-toggle {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--border-radius-sm);
+  padding: .5rem .9rem;
+  cursor: pointer;
+  font-size: .9rem;
+  transition: background var(--transition-fast);
+  white-space: nowrap;
+}
+.dark-mode-toggle:hover { background: rgba(255,255,255,.22); }
+.dark-mode-toggle:focus { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TEMPLATE FORM — RESPONSIVE TWO-COLUMN LAYOUT
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.template-form {
+  display: grid;
+  grid-template-columns: 1fr;          /* single col on small screens */
+  grid-template-areas:
+    "header"
+    "left"
+    "right"
+    "btns";
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 900px) {
+  .template-form {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "header header"
+      "left   right"
+      "btns   btns";
+  }
+}
+
+.form-header-row { grid-area: header; display: flex; gap: var(--spacing-md); flex-wrap: wrap; }
+.form-header-row .form-group { flex: 1; min-width: 180px; }
+.form-col-left   { grid-area: left; }
+.form-col-right  { grid-area: right; }
+.form-btn-row    { grid-area: btns; display: flex; gap: var(--spacing-sm); flex-wrap: wrap; padding-top: .5rem; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PEOPLE PICKER — from config, not hardcoded
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.people-picker-group {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .5rem;
+  background: var(--color-grey-bg);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--color-grey-light);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TAGS PANEL — grouped categories
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.tags-panel {
+  border: 1px solid var(--color-grey-light);
+  border-radius: var(--border-radius-sm);
+  padding: .6rem;
+  background: var(--color-grey-bg);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.tag-category { margin-bottom: .75rem; }
+.tag-category:last-child { margin-bottom: 0; }
+.tag-category-label {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--color-grey);
+  font-weight: 600;
+  margin-bottom: .3rem;
+}
+
+.tag-options { display: flex; flex-wrap: wrap; gap: .3rem; }
+
+.tag-option {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .25rem .6rem;
+  border: 1px solid var(--color-grey-light);
+  border-radius: 20px;
+  font-size: .78rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--color-cream);
+  color: var(--color-slate);
+  user-select: none;
+}
+
+.tag-option:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.tag-option input[type="checkbox"] { width: auto; display: none; }
+.tag-option:has(input:checked) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ACTION POINTS ROW — responsive
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.action-point-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .4rem;
+  padding: .6rem;
+  background: var(--color-grey-bg);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: .4rem;
+  border: 1px solid var(--color-grey-light);
+}
+
+@media (min-width: 640px) {
+  .action-point-row { grid-template-columns: 2fr 1fr 1fr 1fr auto; align-items: center; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   EVIDENCE LINKS ROW
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.evidence-link-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: .4rem;
+  padding: .4rem;
+  background: var(--color-grey-bg);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: .3rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PREVIOUS ACTIONS (LOCKED)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.prev-actions-empty {
+  font-size: .82rem;
+  color: var(--color-grey);
+  font-style: italic;
+}
+
+.prev-actions-list {
+  padding: .5rem;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-grey-bg);
+  border-left: 3px solid var(--color-grey-light);
+}
+
+.prev-action-item { opacity: .75; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SLIDERS GRID — responsive three columns
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.sliders-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
+}
+
+@media (min-width: 480px) {
+  .sliders-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.slider-item label { display: block; margin-bottom: .3rem; }
+
+
+/* ── HEADER BUTTONS (light on dark background) ───────────────────────────── */
+.header-btn {
+  background: rgba(255,255,255,.13);
+  color: #fff;
+  border-color: rgba(255,255,255,.22);
+}
+.header-btn:hover {
+  background: rgba(255,255,255,.25);
+  color: #fff;
+}
+
+/* ── EVIDENCE LOG ENTRY ──────────────────────────────────────────────────── */
+.log-entry {
+  padding: .6rem .8rem;
+  background: var(--color-grey-bg);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+  margin-bottom: .5rem;
+}
