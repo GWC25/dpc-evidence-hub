@@ -280,6 +280,52 @@ const WebParts = {
     };
   }
 
+  // ── RESOURCE LINKS — attach files, links, SharePoint docs ─────────────────
+  // Used for: Resources in COGs, coaching planning materials, session resources
+  resourceLinks: (fieldId) => {
+    const container = document.createElement('div');
+    container.className = 'form-group';
+    container.innerHTML = `
+      <label>Resources / Links
+        <span style="font-size:.75rem;font-weight:400;color:var(--color-slate)"> — SharePoint files, AI agents, Teams recordings, websites</span>
+      </label>
+      <div id="${fieldId}-list" class="resource-links-list"></div>
+      <button type="button" class="btn btn-secondary btn-sm" style="margin-top:.5rem;" onclick="addResourceLink('${fieldId}-list')">+ Add resource</button>
+    `;
+    // Auto-add one blank row so it's immediately usable
+    setTimeout(() => addResourceLink(`${fieldId}-list`), 0);
+    return {
+      container,
+      getValue: () => Array.from(container.querySelectorAll('.resource-link-row')).map(row => ({
+        label: row.querySelector('.resource-link-label')?.value,
+        url:   row.querySelector('.resource-link-url')?.value,
+        type:  row.querySelector('.resource-link-type')?.value
+      })).filter(r => r.url || r.label)
+    };
+  },
+
+  // ── RESOURCE / AI AGENT LINK ──────────────────────────────────────────────
+  resourceUrl: (fieldId) => {
+    const container = document.createElement('div');
+    container.className = 'form-group';
+    container.innerHTML = `
+      <label for="${fieldId}">Resource / AI Agent Link <span style="font-size:.75rem;font-weight:400;color:var(--color-slate)">(optional)</span></label>
+      <div class="resource-url-row">
+        <input type="url" id="${fieldId}" placeholder="https://…" style="flex:1;">
+        <button type="button" class="btn btn-secondary btn-sm" id="${fieldId}-open"
+          onclick="openResourceUrl('${fieldId}')" aria-label="Open link in new tab">Open ↗</button>
+      </div>
+      <p style="font-size:.75rem;color:var(--color-slate);margin-top:.25rem;">
+        Paste a SharePoint resource, AI agent URL, or any reference link here.
+      </p>
+    `;
+    return {
+      container,
+      getValue: () => document.getElementById(fieldId)?.value
+    };
+  },
+
+
 };
 
 // ── GLOBAL HELPERS ────────────────────────────────────────────────────────────
@@ -325,4 +371,42 @@ function startDictation(fieldId) {
     if (el) el.value += (el.value ? ' ' : '') + e.results[0][0].transcript;
   };
   recognition.start();
+}
+
+function openResourceUrl(fieldId) {
+  const url = document.getElementById(fieldId)?.value;
+  if (url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  } else {
+    alert('Enter a URL first.');
+  }
+}
+
+function addResourceLink(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const row = document.createElement('div');
+  row.className = 'resource-link-row';
+  row.innerHTML = `
+    <input type="text" class="resource-link-label" placeholder="Label e.g. Session slides">
+    <select class="resource-link-type" aria-label="Resource type">
+      <option value="link">Link</option>
+      <option value="sharepoint">SharePoint</option>
+      <option value="teams">Teams recording</option>
+      <option value="ai-agent">AI Agent</option>
+      <option value="file">File / other</option>
+    </select>
+    <input type="url" class="resource-link-url" placeholder="https://…">
+    <button type="button" class="btn btn-secondary btn-sm resource-open-btn"
+      onclick="openResourceLinkRow(this)" aria-label="Open link">↗</button>
+    <button type="button" class="btn btn-icon btn-sm"
+      onclick="this.closest('.resource-link-row').remove()" aria-label="Remove">✕</button>
+  `;
+  container.appendChild(row);
+}
+
+function openResourceLinkRow(btn) {
+  const url = btn.closest('.resource-link-row').querySelector('.resource-link-url')?.value;
+  if (url) window.open(url, '_blank', 'noopener,noreferrer');
+  else alert('Enter a URL first.');
 }
