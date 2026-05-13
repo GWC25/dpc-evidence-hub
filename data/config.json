@@ -6,28 +6,26 @@
     "lastUpdated": "2026-05-11T00:00:00Z",
     "version": "3.0"
   },
-
   "phases": [
     {
       "id": "phase1",
-      "name": "Phase 1 — Finish & Formalise",
-      "dateRange": "Jan–Mar 2026",
+      "name": "Phase 1 \u2014 Finish & Formalise",
+      "dateRange": "Jan\u2013Mar 2026",
       "description": "Initial coaching, baseline, HoA meetings, Jisc Discovery Tool deployment, Digital Leads identification"
     },
     {
       "id": "phase2",
-      "name": "Phase 2 — Build Infrastructure",
-      "dateRange": "Apr–Jun 2026",
+      "name": "Phase 2 \u2014 Build Infrastructure",
+      "dateRange": "Apr\u2013Jun 2026",
       "description": "Scale coaching, deepen staff development, embedding practices, Digital Leads CPD Phase 1"
     },
     {
       "id": "phase3",
-      "name": "Phase 3 — Scale & Sustain",
-      "dateRange": "Jul–Sep 2026 onwards",
+      "name": "Phase 3 \u2014 Scale & Sustain",
+      "dateRange": "Jul\u2013Sep 2026 onwards",
       "description": "Transition to independence, Digital Leads advocacy, sustain practices, ongoing evidence collection"
     }
   ],
-
   "commonPurposes": [
     {
       "id": "accessibility",
@@ -90,21 +88,43 @@
       "description": "Education Inspection Framework, Inclusion standalone grade"
     }
   ],
-
   "templates": [
     {
       "id": "meeting-qt",
       "name": "Quality Team Meeting",
       "category": "Meetings",
-      "webParts": ["date", "attendeesTable", "keyPoints", "previousActions", "previousNotes", "newNotes", "actionPoints", "reviewDate", "tags", "threadLinker"],
-      "defaultTags": ["qa", "lwb"],
+      "webParts": [
+        "date",
+        "attendeesTable",
+        "keyPoints",
+        "previousActions",
+        "previousNotes",
+        "newNotes",
+        "actionPoints",
+        "reviewDate",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "qa",
+        "lwb"
+      ],
       "description": "Quality Team governance meetings with evidence discussion"
     },
     {
       "id": "meeting-lm",
       "name": "Line Manager 1:1",
       "category": "Meetings",
-      "webParts": ["date", "peoplePicker", "previousActions", "moodSliders", "newNotes", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "peoplePicker",
+        "previousActions",
+        "moodSliders",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "1:1 with Neil Davies tracking targets and concerns"
     },
@@ -112,15 +132,39 @@
       "id": "meeting-dl",
       "name": "Digital Leads Coaching",
       "category": "Meetings",
-      "webParts": ["date", "peoplePicker", "coachingPrompt", "moodSliders", "previousActions", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["dlsb"],
+      "webParts": [
+        "date",
+        "attendeesTable",
+        "coachingPrompt",
+        "resourceUrl",
+        "moodSliders",
+        "previousActions",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "dlsb"
+      ],
       "description": "Coaching session with Digital Leads on progression"
     },
     {
       "id": "meeting-hoa",
       "name": "Head of Area Meeting",
       "category": "Meetings",
-      "webParts": ["date", "peoplePicker", "areaSelector", "previousActions", "keyPoints", "newNotes", "actionPoints", "reviewDate", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "peoplePicker",
+        "areaSelector",
+        "previousActions",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "reviewDate",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "HoA conversations on digital readiness and support needed"
     },
@@ -128,254 +172,715 @@
       "id": "meeting-exec",
       "name": "Executive Team Meeting",
       "category": "Meetings",
-      "webParts": ["date", "attendeesTable", "keyPoints", "previousActions", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["ofsted", "qa"],
+      "webParts": [
+        "date",
+        "attendeesTable",
+        "keyPoints",
+        "previousActions",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "ofsted",
+        "qa"
+      ],
       "description": "Strategic updates with senior leadership"
     },
     {
       "id": "meeting-dd",
       "name": "Digital Development Team",
       "category": "Meetings",
-      "webParts": ["date", "attendeesTable", "keyPoints", "previousActions", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["teams"],
+      "webParts": [
+        "date",
+        "attendeesTable",
+        "keyPoints",
+        "previousActions",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "teams"
+      ],
       "description": "Coordination with IT and digital infrastructure team"
     },
     {
       "id": "meeting-external",
       "name": "External / BETT / Conferences",
       "category": "Meetings",
-      "webParts": ["date", "title", "location", "peoplePicker", "keyPoints", "newNotes", "actionPoints", "evidenceLinks", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "location",
+        "peoplePicker",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "evidenceLinks",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "External events and conferences for horizon scanning and networking"
     },
-
     {
       "id": "teachmeet-afl",
-      "name": "Teach.Meet — All for Learning",
+      "name": "Teach.Meet \u2014 All for Learning",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Teaching sessions focused on learning design and student engagement"
     },
     {
       "id": "teachmeet-afe",
-      "name": "Teach.Meet — All for Efficiency",
+      "name": "Teach.Meet \u2014 All for Efficiency",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Sessions on workflow, tools, and time efficiency in teaching"
     },
     {
       "id": "teachmeet-lm",
-      "name": "Teach.Meet — Live Modeling",
+      "name": "Teach.Meet \u2014 Live Modeling",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Live demonstration of teaching practice or tool use"
     },
     {
       "id": "teachmeet-qa",
-      "name": "Teach.Meet — Q+A",
+      "name": "Teach.Meet \u2014 Q+A",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Question and answer session on pedagogy or tools"
     },
     {
       "id": "teachmeet-teams",
-      "name": "Teach.Meet — Teams",
+      "name": "Teach.Meet \u2014 Teams",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["teams"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "teams"
+      ],
       "description": "Teams environment setup, structure, and best practices"
     },
     {
       "id": "teachmeet-ai",
-      "name": "Teach.Meet — Accessibility & Inclusion",
+      "name": "Teach.Meet \u2014 Accessibility & Inclusion",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["accessibility", "lwb"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "accessibility",
+        "lwb"
+      ],
       "description": "Accessible design, assistive technology, inclusive practices"
     },
     {
       "id": "teachmeet-cl",
-      "name": "Teach.Meet — Capturing Learning",
+      "name": "Teach.Meet \u2014 Capturing Learning",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Evidence capture, formative assessment, feedback loops"
     },
     {
       "id": "teachmeet-fa",
-      "name": "Teach.Meet — Feedback + Assessment",
+      "name": "Teach.Meet \u2014 Feedback + Assessment",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla", "qa"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla",
+        "qa"
+      ],
       "description": "Formative and summative assessment, feedback best practices"
     },
     {
       "id": "teachmeet-mon",
-      "name": "Teach.Meet — Monitoring",
+      "name": "Teach.Meet \u2014 Monitoring",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["qa"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "qa"
+      ],
       "description": "Progress tracking, data review, intervention planning"
     },
     {
       "id": "teachmeet-clar",
-      "name": "Teach.Meet — Clarification",
+      "name": "Teach.Meet \u2014 Clarification",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Clearing up confusion, technical support, how-to guidance"
     },
     {
       "id": "teachmeet-eng",
-      "name": "Teach.Meet — Engagement",
+      "name": "Teach.Meet \u2014 Engagement",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "Student engagement, motivation, interactive design"
     },
     {
       "id": "teachmeet-21cld",
-      "name": "Teach.Meet — 21st Century Learning Design",
+      "name": "Teach.Meet \u2014 21st Century Learning Design",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "tla"
+      ],
       "description": "21st Century Learning Design framework, student-centred pedagogy"
     },
     {
       "id": "teachmeet-udl",
-      "name": "Teach.Meet — UDL",
+      "name": "Teach.Meet \u2014 UDL",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["accessibility", "tla"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "accessibility",
+        "tla"
+      ],
       "description": "Universal Design for Learning principles and practice"
     },
     {
       "id": "teachmeet-impact",
-      "name": "Teach.Meet — Impact",
+      "name": "Teach.Meet \u2014 Impact",
       "category": "Teach.Meets",
-      "webParts": ["date", "areaSelector", "title", "keyPoints", "newNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["qa"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "title",
+        "keyPoints",
+        "newNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "qa"
+      ],
       "description": "Measuring impact, case studies, evidence of effectiveness"
     },
-
     {
       "id": "coaching-group",
-      "name": "Coaching — Group",
+      "name": "Coaching \u2014 Group",
       "category": "Coaching",
-      "webParts": ["date", "areaSelector", "peoplePicker", "coachingPrompt", "moodSliders", "reflectionNotes", "resourceLinks", "planningNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["dlsb"],
+      "webParts": [
+        "date",
+        "areaSelector",
+        "peoplePicker",
+        "coachingPrompt",
+        "moodSliders",
+        "reflectionNotes",
+        "resourceLinks",
+        "planningNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "dlsb"
+      ],
       "description": "Group coaching session with reflection, resources, and planning"
     },
     {
       "id": "coaching-1to1",
-      "name": "Coaching — 1:1",
+      "name": "Coaching \u2014 1:1",
       "category": "Coaching",
-      "webParts": ["date", "peoplePicker", "coachingPrompt", "moodSliders", "reflectionNotes", "resourceLinks", "planningNotes", "actionPoints", "tags", "threadLinker"],
-      "defaultTags": ["dlsb"],
+      "webParts": [
+        "date",
+        "peoplePicker",
+        "coachingPrompt",
+        "moodSliders",
+        "reflectionNotes",
+        "resourceLinks",
+        "planningNotes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
+      "defaultTags": [
+        "dlsb"
+      ],
       "description": "One-to-one coaching session with reflection, resources, and planning"
     },
-
     {
       "id": "cpd-own",
-      "name": "CPD — Own Professional Development",
+      "name": "CPD \u2014 Own Professional Development",
       "category": "CPD & Professional",
-      "webParts": ["date", "title", "provider", "duration", "reflectionNotes", "learningTakeaway", "applicationPlan", "tags"],
+      "webParts": [
+        "date",
+        "title",
+        "provider",
+        "duration",
+        "reflectionNotes",
+        "learningTakeaway",
+        "applicationPlan",
+        "tags"
+      ],
       "defaultTags": [],
       "description": "Your own CPD, courses, reading, professional development"
     },
     {
       "id": "cpd-external",
-      "name": "CPD — External Events & Networking",
+      "name": "CPD \u2014 External Events & Networking",
       "category": "CPD & Professional",
-      "webParts": ["date", "title", "location", "eventType", "attendees", "keyPoints", "networkingNotes", "actionPoints", "tags"],
+      "webParts": [
+        "date",
+        "title",
+        "location",
+        "eventType",
+        "attendees",
+        "keyPoints",
+        "networkingNotes",
+        "actionPoints",
+        "tags"
+      ],
       "defaultTags": [],
       "description": "BETT, Digifest, Jisc events, DigiWest, sector networking"
     },
-
     {
       "id": "cogs-overview",
-      "name": "COGs — Overview Planning",
+      "name": "COGs \u2014 Overview Planning",
       "category": "COGs",
-      "webParts": ["date", "title", "cogsTheme", "objectives", "targetAudience", "resources", "learningOutcomes", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "cogsTheme",
+        "objectives",
+        "targetAudience",
+        "resources",
+        "learningOutcomes",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "COGs programme overview and high-level planning"
     },
     {
       "id": "cogs-session1",
-      "name": "COGs — Session 1",
+      "name": "COGs \u2014 Session 1",
       "category": "COGs",
-      "webParts": ["date", "title", "sessionNumber", "objectives", "sessionPlan", "resources", "reflectionNotes", "attendeeCount", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "sessionNumber",
+        "objectives",
+        "sessionPlan",
+        "resources",
+        "reflectionNotes",
+        "attendeeCount",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "First session of COGs programme with planning and reflection"
     },
     {
       "id": "cogs-session2",
-      "name": "COGs — Session 2",
+      "name": "COGs \u2014 Session 2",
       "category": "COGs",
-      "webParts": ["date", "title", "sessionNumber", "objectives", "sessionPlan", "resources", "reflectionNotes", "attendeeCount", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "sessionNumber",
+        "objectives",
+        "sessionPlan",
+        "resources",
+        "reflectionNotes",
+        "attendeeCount",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "Second session of COGs programme with planning and reflection"
     },
     {
       "id": "cogs-session3",
-      "name": "COGs — Session 3",
+      "name": "COGs \u2014 Session 3",
       "category": "COGs",
-      "webParts": ["date", "title", "sessionNumber", "objectives", "sessionPlan", "resources", "reflectionNotes", "attendeeCount", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "sessionNumber",
+        "objectives",
+        "sessionPlan",
+        "resources",
+        "reflectionNotes",
+        "attendeeCount",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "Third session of COGs programme with planning and reflection"
     },
     {
       "id": "cogs-session4",
-      "name": "COGs — Session 4",
+      "name": "COGs \u2014 Session 4",
       "category": "COGs",
-      "webParts": ["date", "title", "sessionNumber", "objectives", "sessionPlan", "resources", "reflectionNotes", "attendeeCount", "actionPoints", "tags", "threadLinker"],
+      "webParts": [
+        "date",
+        "title",
+        "sessionNumber",
+        "objectives",
+        "sessionPlan",
+        "resources",
+        "reflectionNotes",
+        "attendeeCount",
+        "actionPoints",
+        "tags",
+        "threadLinker"
+      ],
       "defaultTags": [],
       "description": "Fourth session of COGs programme with planning and reflection"
     }
   ],
-
   "webParts": {
-    "date": { "type": "date", "label": "Date", "required": true },
-    "title": { "type": "text", "label": "Title / Summary", "required": true, "hasMic": true },
-    "peoplePicker": { "type": "select", "label": "People", "multiple": true, "linkedTo": "peopleRegistry" },
-    "attendeesTable": { "type": "table", "label": "Attendees", "columns": ["name", "role"] },
-    "areaSelector": { "type": "select", "label": "Curriculum Area", "linkedTo": "areas" },
-    "keyPoints": { "type": "textarea", "label": "Key Points / Notes", "hasMic": true },
-    "newNotes": { "type": "textarea", "label": "Notes / Detail", "hasMic": true },
-    "previousActions": { "type": "lockedList", "label": "Previous Actions (locked, tickable)", "autofill": true },
-    "previousNotes": { "type": "lockedText", "label": "Previous Notes (read-only)", "autofill": true },
-    "actionPoints": { "type": "structuredList", "label": "Action Points", "fields": ["action", "deadline", "who", "howSupport"] },
-    "reviewDate": { "type": "date", "label": "Review Date", "optional": true },
-    "moodSliders": { "type": "sliders", "label": "Mood & Stress", "scales": ["mood", "stress", "confidence"] },
-    "coachingPrompt": { "type": "textarea", "label": "Coaching Question / Prompt", "hasMic": true, "optional": true },
-    "reflectionNotes": { "type": "textarea", "label": "Reflection", "hasMic": true, "optional": true },
-    "resourceLinks": { "type": "resourcePicker", "label": "Resources Used", "multiple": true, "linkedTo": "resourceLibrary" },
-    "planningNotes": { "type": "textarea", "label": "Planning for Next Session", "hasMic": true, "optional": true },
-    "tags": { "type": "tagPicker", "label": "Tags", "linkedTo": "commonPurposes", "threeTier": true },
-    "threadLinker": { "type": "select", "label": "Link to Thread", "linkedTo": "threads", "optional": true, "allowNew": true },
-    "evidenceLinks": { "type": "linkPicker", "label": "Evidence Links", "multiple": true, "optional": true },
-    "provider": { "type": "text", "label": "Provider / Organisation" },
-    "duration": { "type": "text", "label": "Duration" },
-    "learningTakeaway": { "type": "textarea", "label": "Key Learning Takeaway", "hasMic": true },
-    "applicationPlan": { "type": "textarea", "label": "How You'll Apply This", "hasMic": true, "optional": true },
-    "location": { "type": "text", "label": "Location / Event" },
-    "eventType": { "type": "select", "label": "Event Type", "options": ["Conference", "Workshop", "Networking", "Training", "Other"] },
-    "attendees": { "type": "text", "label": "Who Attended" },
-    "networkingNotes": { "type": "textarea", "label": "Networking Notes & Contacts", "hasMic": true, "optional": true },
-    "cogsTheme": { "type": "select", "label": "COGs Theme", "linkedTo": "cogsThemes" },
-    "objectives": { "type": "textarea", "label": "Objectives / Learning Outcomes", "hasMic": true },
-    "targetAudience": { "type": "text", "label": "Target Audience" },
-    "resources": { "type": "resourcePicker", "label": "Resources", "multiple": true, "linkedTo": "resourceLibrary", "optional": true },
-    "learningOutcomes": { "type": "textarea", "label": "Expected Learning Outcomes", "hasMic": true },
-    "sessionNumber": { "type": "hidden", "value": "auto-populated" },
-    "sessionPlan": { "type": "textarea", "label": "Session Plan & Delivery Notes", "hasMic": true },
-    "attendeeCount": { "type": "number", "label": "Number of Attendees" }
+    "date": {
+      "type": "date",
+      "label": "Date",
+      "required": true
+    },
+    "title": {
+      "type": "text",
+      "label": "Title / Summary",
+      "required": true,
+      "hasMic": true
+    },
+    "peoplePicker": {
+      "type": "select",
+      "label": "People",
+      "multiple": true,
+      "linkedTo": "peopleRegistry"
+    },
+    "attendeesTable": {
+      "type": "table",
+      "label": "Attendees",
+      "columns": [
+        "name",
+        "role"
+      ]
+    },
+    "areaSelector": {
+      "type": "select",
+      "label": "Curriculum Area",
+      "linkedTo": "areas"
+    },
+    "keyPoints": {
+      "type": "textarea",
+      "label": "Key Points / Notes",
+      "hasMic": true
+    },
+    "newNotes": {
+      "type": "textarea",
+      "label": "Notes / Detail",
+      "hasMic": true
+    },
+    "previousActions": {
+      "type": "lockedList",
+      "label": "Previous Actions (locked, tickable)",
+      "autofill": true
+    },
+    "previousNotes": {
+      "type": "lockedText",
+      "label": "Previous Notes (read-only)",
+      "autofill": true
+    },
+    "actionPoints": {
+      "type": "structuredList",
+      "label": "Action Points",
+      "fields": [
+        "action",
+        "deadline",
+        "who",
+        "howSupport"
+      ]
+    },
+    "reviewDate": {
+      "type": "date",
+      "label": "Review Date",
+      "optional": true
+    },
+    "moodSliders": {
+      "type": "sliders",
+      "label": "Mood & Stress",
+      "scales": [
+        "mood",
+        "stress",
+        "confidence"
+      ]
+    },
+    "coachingPrompt": {
+      "type": "textarea",
+      "label": "Coaching Question / Prompt",
+      "hasMic": true,
+      "optional": true
+    },
+    "reflectionNotes": {
+      "type": "textarea",
+      "label": "Reflection",
+      "hasMic": true,
+      "optional": true
+    },
+    "resourceLinks": {
+      "type": "resourcePicker",
+      "label": "Resources Used",
+      "multiple": true,
+      "linkedTo": "resourceLibrary"
+    },
+    "planningNotes": {
+      "type": "textarea",
+      "label": "Planning for Next Session",
+      "hasMic": true,
+      "optional": true
+    },
+    "tags": {
+      "type": "tagPicker",
+      "label": "Tags",
+      "linkedTo": "commonPurposes",
+      "threeTier": true
+    },
+    "threadLinker": {
+      "type": "select",
+      "label": "Link to Thread",
+      "linkedTo": "threads",
+      "optional": true,
+      "allowNew": true
+    },
+    "evidenceLinks": {
+      "type": "linkPicker",
+      "label": "Evidence Links",
+      "multiple": true,
+      "optional": true
+    },
+    "provider": {
+      "type": "text",
+      "label": "Provider / Organisation"
+    },
+    "duration": {
+      "type": "text",
+      "label": "Duration"
+    },
+    "learningTakeaway": {
+      "type": "textarea",
+      "label": "Key Learning Takeaway",
+      "hasMic": true
+    },
+    "applicationPlan": {
+      "type": "textarea",
+      "label": "How You'll Apply This",
+      "hasMic": true,
+      "optional": true
+    },
+    "location": {
+      "type": "text",
+      "label": "Location / Event"
+    },
+    "eventType": {
+      "type": "select",
+      "label": "Event Type",
+      "options": [
+        "Conference",
+        "Workshop",
+        "Networking",
+        "Training",
+        "Other"
+      ]
+    },
+    "attendees": {
+      "type": "text",
+      "label": "Who Attended"
+    },
+    "networkingNotes": {
+      "type": "textarea",
+      "label": "Networking Notes & Contacts",
+      "hasMic": true,
+      "optional": true
+    },
+    "cogsTheme": {
+      "type": "select",
+      "label": "COGs Theme",
+      "linkedTo": "cogsThemes"
+    },
+    "objectives": {
+      "type": "textarea",
+      "label": "Objectives / Learning Outcomes",
+      "hasMic": true
+    },
+    "targetAudience": {
+      "type": "text",
+      "label": "Target Audience"
+    },
+    "resources": {
+      "type": "resourcePicker",
+      "label": "Resources",
+      "multiple": true,
+      "linkedTo": "resourceLibrary",
+      "optional": true
+    },
+    "learningOutcomes": {
+      "type": "textarea",
+      "label": "Expected Learning Outcomes",
+      "hasMic": true
+    },
+    "sessionNumber": {
+      "type": "hidden",
+      "value": "auto-populated"
+    },
+    "sessionPlan": {
+      "type": "textarea",
+      "label": "Session Plan & Delivery Notes",
+      "hasMic": true
+    },
+    "attendeeCount": {
+      "type": "number",
+      "label": "Number of Attendees"
+    },
+    "resourceUrl": {
+      "type": "url",
+      "label": "Resource / AI Agent Link",
+      "hasMic": false,
+      "optional": true
+    }
   },
-
   "cogsThemes": [
     "AI & Generative AI",
     "Accessibility & Inclusive Practice",
@@ -386,12 +891,22 @@
     "21st Century Learning Design",
     "Other"
   ],
-
   "peopleRegistry": [
-    { "id": "gw", "name": "Graeme Wright", "role": "Digital Pedagogy Coach" },
-    { "id": "nd", "name": "Neil Davies", "role": "Assistant Principal, Quality" },
-    { "id": "bm", "name": "Ben Manning", "role": "Vice Principal, Quality" }
+    {
+      "id": "gw",
+      "name": "Graeme Wright",
+      "role": "Digital Pedagogy Coach"
+    },
+    {
+      "id": "nd",
+      "name": "Neil Davies",
+      "role": "Assistant Principal, Quality"
+    },
+    {
+      "id": "bm",
+      "name": "Ben Manning",
+      "role": "Vice Principal, Quality"
+    }
   ],
-
   "note": "Edit this config to add areas, people, customize phases and common purposes. This is the master configuration for all templates and web parts."
 }
