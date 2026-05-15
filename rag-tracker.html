@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG Tracker · DPC Evidence Hub</title>
+<link rel="stylesheet" href="css/hub.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* ── RAG TRACKER SPECIFIC STYLES ─────────────────────────────────────────── */
+
+/* Level colours as CSS vars */
+:root {
+  --rag-1: #15803d; --rag-1-bg: #dcfce7; --rag-1-text: #14532d;
+  --rag-2: #65a30d; --rag-2-bg: #ecfccb; --rag-2-text: #365314;
+  --rag-3: #d97706; --rag-3-bg: #fef3c7; --rag-3-text: #78350f;
+  --rag-4: #dc2626; --rag-4-bg: #fee2e2; --rag-4-text: #7f1d1d;
+  --rag-5: #7f1d1d; --rag-5-bg: #fecaca; --rag-5-text: #450a0a;
+  --rag-none: #6b7280; --rag-none-bg: #f3f4f6; --rag-none-text: #374151;
+}
+
+body.dark-mode {
+  --rag-1-bg: #14532d; --rag-2-bg: #365314; --rag-3-bg: #78350f;
+  --rag-4-bg: #7f1d1d; --rag-5-bg: #450a0a; --rag-none-bg: #374151;
+  --rag-1-text: #dcfce7; --rag-2-text: #ecfccb; --rag-3-text: #fef3c7;
+  --rag-4-text: #fee2e2; --rag-5-text: #fecaca; --rag-none-text: #f3f4f6;
+}
+
+/* ── APP LAYOUT ──────────────────────────────────────────────────────────── */
+.rag-layout { display: grid; grid-template-columns: 280px 1fr; height: calc(100vh - var(--header-height)); }
+@media (max-width: 900px) { .rag-layout { grid-template-columns: 1fr; } }
+
+/* ── LEFT PANEL — STATUS BOARD ───────────────────────────────────────────── */
+.rag-sidebar {
+  border-right: 1px solid var(--color-grey-light);
+  overflow-y: auto;
+  background: var(--color-grey-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.rag-sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-grey-light);
+  position: sticky;
+  top: 0;
+  background: var(--color-grey-bg);
+  z-index: 2;
+}
+
+.rag-sidebar-header h3 { font-family: var(--font-serif); font-size: 1rem; margin-bottom: .5rem; }
+
+.rag-filters { display: flex; flex-direction: column; gap: .3rem; }
+.rag-filter-row { display: flex; gap: .3rem; flex-wrap: wrap; }
+.rag-filter-btn {
+  padding: .25rem .6rem; font-size: .72rem; border-radius: 20px;
+  border: 1px solid var(--color-grey-light); background: var(--color-cream);
+  color: var(--color-slate); cursor: pointer; font-family: inherit;
+  transition: all .15s ease;
+}
+.rag-filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.rag-filter-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+.rag-area-list { flex: 1; overflow-y: auto; padding: .5rem; }
+
+.rag-area-card {
+  padding: .6rem .8rem;
+  border-radius: 8px;
+  margin-bottom: .35rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all .15s ease;
+  background: var(--color-cream);
+}
+.rag-area-card:hover { border-color: var(--color-primary); background: var(--color-cream); }
+.rag-area-card.active { border-color: var(--color-primary); background: var(--color-primary); color: #fff; }
+.rag-area-card.active .rag-area-code, .rag-area-card.active .rag-area-hoa { color: rgba(255,255,255,.8); }
+
+.rag-area-card-header { display: flex; align-items: center; justify-content: space-between; gap: .4rem; margin-bottom: .3rem; }
+.rag-area-code { font-family: var(--font-mono); font-size: .7rem; color: var(--color-grey); }
+.rag-area-name { font-size: .82rem; font-weight: 500; }
+.rag-area-hoa  { font-size: .72rem; color: var(--color-slate); margin-top: .1rem; }
+
+.rag-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; border-radius: 50%;
+  font-size: .72rem; font-weight: 700; font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.rag-badge.na { background: var(--rag-none-bg); color: var(--rag-none-text); font-size: .6rem; }
+.rag-badge.l1 { background: var(--rag-1); color: #fff; }
+.rag-badge.l2 { background: var(--rag-2); color: #fff; }
+.rag-badge.l3 { background: var(--rag-3); color: #fff; }
+.rag-badge.l4 { background: var(--rag-4); color: #fff; }
+.rag-badge.l5 { background: var(--rag-5); color: #fff; }
+
+.dim-mini-row { display: flex; gap: 2px; margin-top: .3rem; }
+.dim-mini { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+/* ── RIGHT PANEL — AREA DETAIL ───────────────────────────────────────────── */
+.rag-main { overflow-y: auto; padding: 1.5rem; }
+
+.rag-welcome {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 60%; text-align: center; color: var(--color-slate);
+}
+.rag-welcome h2 { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: .5rem; color: var(--color-navy); }
+
+/* Area header */
+.area-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
+}
+.area-header-left h2 { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: .2rem; }
+.area-header-meta { font-size: .82rem; color: var(--color-slate); }
+.area-header-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+/* Area tabs */
+.area-tabs { display: flex; gap: .25rem; border-bottom: 2px solid var(--color-grey-light); margin-bottom: 1.5rem; }
+.area-tab {
+  padding: .5rem 1rem; background: none; border: none; font-family: inherit;
+  font-size: .88rem; color: var(--color-slate); cursor: pointer;
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+  transition: all .15s ease;
+}
+.area-tab:hover { background: var(--color-grey-bg); }
+.area-tab.active { background: var(--color-primary); color: #fff; }
+.area-tab-panel { display: none; }
+.area-tab-panel.active { display: block; }
+
+/* ── FRAMEWORK GRID ──────────────────────────────────────────────────────── */
+.framework-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(5, 1fr);
+  gap: 2px;
+  font-size: .78rem;
+  border: 1px solid var(--color-grey-light);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.fg-header-corner {
+  padding: .6rem;
+  background: var(--color-navy);
+  color: #fff;
+  font-weight: 600;
+  font-size: .72rem;
+  display: flex;
+  align-items: center;
+}
+
+.fg-level-header {
+  padding: .6rem .4rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: .72rem;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.fg-level-header:hover { opacity: .85; }
+
+.fg-dim-label {
+  padding: .6rem .5rem;
+  background: var(--color-grey-bg);
+  font-weight: 600;
+  font-size: .72rem;
+  border-top: 1px solid var(--color-grey-light);
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.fg-dim-score {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  padding: .15rem .4rem;
+  border-radius: 20px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.fg-cell {
+  padding: .5rem .4rem;
+  border-top: 1px solid var(--color-grey-light);
+  cursor: pointer;
+  transition: all .15s ease;
+  position: relative;
+  line-height: 1.35;
+}
+
+.fg-cell:hover { filter: brightness(.92); }
+
+.fg-cell.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: .9rem;
+  font-weight: 700;
+  color: inherit;
+  opacity: .9;
+}
+
+/* ── OVERALL SCORE DISPLAY ───────────────────────────────────────────────── */
+.overall-score-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.overall-score-number {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.overall-score-label { font-size: 1.1rem; font-weight: 600; }
+.overall-score-rule  { font-size: .78rem; opacity: .8; margin-top: .2rem; }
+
+.override-section { margin-top: .75rem; padding-top: .75rem; border-top: 1px solid rgba(255,255,255,.2); }
+.override-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.override-row label { font-size: .78rem; }
+.override-row select, .override-row input { font-size: .78rem; padding: .3rem .5rem; }
+
+/* ── S+AFI SECTION ───────────────────────────────────────────────────────── */
+.safi-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 700px) { .safi-columns { grid-template-columns: 1fr; } }
+
+.safi-list { display: flex; flex-direction: column; gap: .5rem; }
+.safi-item {
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  font-size: .83rem;
+  border-left: 3px solid;
+  position: relative;
+}
+.safi-item.strength { background: var(--rag-1-bg); color: var(--rag-1-text); border-color: var(--rag-1); }
+.safi-item.afi      { background: var(--rag-4-bg); color: var(--rag-4-text); border-color: var(--rag-4); }
+.safi-item.afi.medium { border-color: var(--rag-3); background: var(--rag-3-bg); color: var(--rag-3-text); }
+
+.safi-actions { position: absolute; top: .4rem; right: .4rem; display: flex; gap: .25rem; opacity: 0; transition: opacity .15s; }
+.safi-item:hover .safi-actions { opacity: 1; }
+.safi-icon-btn { background: none; border: none; cursor: pointer; font-size: .8rem; padding: .1rem; opacity: .7; }
+.safi-icon-btn:hover { opacity: 1; }
+
+.safi-add-form { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .5rem; }
+.safi-add-form textarea { flex: 1; min-width: 200px; font-size: .82rem; padding: .4rem .6rem; border-radius: 6px; border: 1px solid var(--color-grey-light); background: var(--color-cream); color: var(--color-navy); font-family: inherit; rows: 2; resize: vertical; }
+.safi-priority-sel { font-size: .78rem; }
+
+/* ── ACTION PLAN ─────────────────────────────────────────────────────────── */
+.action-plan-filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.action-card {
+  padding: .7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-grey-light);
+  margin-bottom: .5rem;
+  background: var(--color-cream);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .5rem;
+  align-items: start;
+}
+
+.action-card.urgent  { border-left: 4px solid var(--rag-4); }
+.action-card.high    { border-left: 4px solid var(--rag-3); }
+.action-card.medium  { border-left: 4px solid var(--rag-2); }
+.action-card.low     { border-left: 4px solid var(--rag-1); }
+
+.action-text    { font-size: .85rem; font-weight: 500; margin-bottom: .3rem; }
+.action-meta    { font-size: .75rem; color: var(--color-slate); display: flex; gap: .75rem; flex-wrap: wrap; }
+.action-role    { font-size: .72rem; padding: .15rem .5rem; border-radius: 20px; background: var(--color-grey-bg); border: 1px solid var(--color-grey-light); }
+.action-status  { font-size: .72rem; padding: .15rem .5rem; border-radius: 20px; font-weight: 600; }
+.action-status.not-started { background: var(--rag-none-bg); color: var(--rag-none-text); }
+.action-status.in-progress { background: var(--rag-3-bg);   color: var(--rag-3-text); }
+.action-status.completed   { background: var(--rag-1-bg);   color: var(--rag-1-text); }
+.action-status.at-risk     { background: var(--rag-4-bg);   color: var(--rag-4-text); }
+
+/* ── HISTORY TIMELINE ────────────────────────────────────────────────────── */
+.history-item { display: flex; gap: .75rem; margin-bottom: 1rem; }
+.history-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0; margin-top: .3rem; }
+.history-content { flex: 1; font-size: .83rem; }
+.history-date { font-family: var(--font-mono); font-size: .72rem; color: var(--color-slate); }
+
+/* ── ADD ACTION FORM ─────────────────────────────────────────────────────── */
+.add-action-form {
+  padding: 1rem;
+  background: var(--color-grey-bg);
+  border-radius: 8px;
+  border: 1px solid var(--color-grey-light);
+  margin-top: 1rem;
+  display: none;
+}
+.add-action-form.open { display: block; }
+.add-action-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: .5rem; margin-bottom: .5rem; }
+@media (max-width: 700px) { .add-action-grid { grid-template-columns: 1fr; } }
+
+/* ── FRAMEWORK EDITOR ────────────────────────────────────────────────────── */
+.framework-editor-cell {
+  padding: .5rem;
+  border: 1px solid var(--color-grey-light);
+  border-radius: 6px;
+  font-size: .78rem;
+  width: 100%;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  font-family: inherit;
+  resize: vertical;
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- HEADER -->
+<header class="app-header" role="banner">
+  <div class="header-brand">
+    <a href="hub.html" class="header-logo" style="text-decoration:none" aria-label="Back to hub">DPC</a>
+    <div>
+      <div class="header-title">RAG Tracker</div>
+      <div class="header-sub">Multi-Dimensional Assessment · Weston College Group</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙 Dark mode</button>
+    <a href="hub.html" class="btn btn-sm header-btn">← Evidence Hub</a>
+    <button class="btn btn-sm header-btn" onclick="exportData()">💾 Export</button>
+  </div>
+</header>
+
+<div class="rag-layout" id="main-content">
+
+  <!-- ── LEFT: STATUS BOARD ──────────────────────────────────────────────── -->
+  <aside class="rag-sidebar" role="navigation" aria-label="Area list">
+    <div class="rag-sidebar-header">
+      <h3>All Areas <span id="area-count" style="font-family:var(--font-mono);font-size:.75rem;font-weight:400;color:var(--color-slate);"></span></h3>
+      <div class="rag-filters">
+        <div style="font-size:.7rem;color:var(--color-grey);margin-bottom:.2rem;">Filter by overall level</div>
+        <div class="rag-filter-row">
+          <button class="rag-filter-btn active" onclick="filterAreas('all',this)">All</button>
+          <button class="rag-filter-btn" onclick="filterAreas('assessed',this)">Assessed</button>
+          <button class="rag-filter-btn" onclick="filterAreas('not-assessed',this)">Not yet</button>
+        </div>
+        <div class="rag-filter-row" style="margin-top:.25rem;">
+          <button class="rag-filter-btn" onclick="filterAreas('level-1',this)" style="background:var(--rag-1);color:#fff;border-color:var(--rag-1);">1</button>
+          <button class="rag-filter-btn" onclick="filterAreas('level-2',this)" style="background:var(--rag-2);color:#fff;border-color:var(--rag-2);">2</button>
+          <button class="rag-filter-btn" onclick="filterAreas('level-3',this)" style="background:var(--rag-3);color:#fff;border-color:var(--rag-3);">3</button>
+          <button class="rag-filter-btn" onclick="filterAreas('level-4',this)" style="background:var(--rag-4);color:#fff;border-color:var(--rag-4);">4</button>
+          <button class="rag-filter-btn" onclick="filterAreas('level-5',this)" style="background:var(--rag-5);color:#fff;border-color:var(--rag-5);">5</button>
+        </div>
+        <input type="search" id="area-search" placeholder="Search areas…" style="margin-top:.4rem;font-size:.8rem;padding:.35rem .6rem;"
+          oninput="searchAreas(this.value)" aria-label="Search curriculum areas">
+      </div>
+    </div>
+    <div class="rag-area-list" id="area-list" role="list" aria-label="Curriculum areas"></div>
+  </aside>
+
+  <!-- ── RIGHT: AREA DETAIL ──────────────────────────────────────────────── -->
+  <main class="rag-main" id="area-detail">
+    <div class="rag-welcome">
+      <div style="font-size:3rem;margin-bottom:1rem;">◉</div>
+      <h2>Select an area to begin</h2>
+      <p>Choose a curriculum area from the left panel to view or update its RAG assessment.</p>
+      <p style="margin-top:.5rem;font-size:.82rem;">5 pilot areas are pre-populated. All others are ready for data as assessments are completed.</p>
+    </div>
+  </main>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast-container" role="status" aria-live="polite"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+let FRAMEWORK = null;
+let AREA_RAGS = null;
+let CURRENT_AREA = null;
+let DARK_MODE = localStorage.getItem('dpc-dark-mode') === 'true';
+const LEVEL_LABELS = {1:'Confident',2:'On Track',3:'Developing',4:'Challenged',5:'Urgent'};
+const LEVEL_CLASSES = {1:'l1',2:'l2',3:'l3',4:'l4',5:'l5'};
+const DIM_COLOURS = {1:'var(--rag-1)',2:'var(--rag-2)',3:'var(--rag-3)',4:'var(--rag-4)',5:'var(--rag-5)',null:'var(--rag-none)'};
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  if (DARK_MODE) { document.body.classList.add('dark-mode'); document.querySelector('.dark-mode-toggle').textContent = '☀️ Light mode'; }
+  await Promise.all([loadFramework(), loadAreaRags()]);
+  renderAreaList();
+});
+
+async function loadFramework() {
+  try {
+    const r = await fetch('data/rag-framework.json');
+    FRAMEWORK = await r.json();
+  } catch(e) { showToast('Could not load rag-framework.json', 'error'); }
+}
+
+async function loadAreaRags() {
+  try {
+    const r = await fetch('data/area-rags.json');
+    AREA_RAGS = await r.json();
+  } catch(e) { showToast('Could not load area-rags.json', 'error'); }
+}
+
+// ── AREA LIST ──────────────────────────────────────────────────────────────────
+let currentFilter = 'all';
+let currentSearch = '';
+
+function renderAreaList() {
+  if (!AREA_RAGS) return;
+  const list = document.getElementById('area-list');
+  const areas = Object.values(AREA_RAGS.areas);
+  const total = areas.length;
+  const assessed = areas.filter(a => a.assessmentStatus === 'assessed').length;
+  document.getElementById('area-count').textContent = `${assessed}/${total} assessed`;
+
+  list.innerHTML = '';
+  areas
+    .filter(a => applyFilter(a))
+    .filter(a => !currentSearch || a.name.toLowerCase().includes(currentSearch.toLowerCase()) || a.code.toLowerCase().includes(currentSearch.toLowerCase()))
+    .sort((a, b) => {
+      // Assessed first, then by overall RAG descending (higher = more urgent), then alpha
+      if (a.assessmentStatus !== b.assessmentStatus) return a.assessmentStatus === 'assessed' ? -1 : 1;
+      const ar = a.overallRagOverride ?? a.overallRag ?? 0;
+      const br = b.overallRagOverride ?? b.overallRag ?? 0;
+      if (ar !== br) return br - ar;
+      return a.name.localeCompare(b.name);
+    })
+    .forEach(area => {
+      const card = buildAreaCard(area);
+      list.appendChild(card);
+    });
+}
+
+function applyFilter(area) {
+  if (currentFilter === 'all') return true;
+  if (currentFilter === 'assessed') return area.assessmentStatus === 'assessed';
+  if (currentFilter === 'not-assessed') return area.assessmentStatus !== 'assessed';
+  if (currentFilter.startsWith('level-')) {
+    const lvl = parseInt(currentFilter.split('-')[1]);
+    const overall = area.overallRagOverride ?? area.overallRag;
+    return overall === lvl;
+  }
+  return true;
+}
+
+function buildAreaCard(area) {
+  const overall = area.overallRagOverride ?? area.overallRag;
+  const lvlClass = overall ? LEVEL_CLASSES[overall] : 'na';
+  const lvlLabel = overall ? LEVEL_LABELS[overall] : '–';
+  const dims = FRAMEWORK?.dimensions || [];
+  const dimMinis = dims.map(d => {
+    const r = area.dimensions[d.id]?.rating;
+    const bg = r ? DIM_COLOURS[r] : 'var(--rag-none)';
+    return `<div class="dim-mini" style="background:${bg}" title="${d.shortName}: ${r ? 'Level '+r : 'Not assessed'}"></div>`;
+  }).join('');
+
+  const div = document.createElement('div');
+  div.className = `rag-area-card ${CURRENT_AREA === area.code ? 'active' : ''}`;
+  div.setAttribute('role', 'listitem');
+  div.onclick = () => openArea(area.code);
+  div.innerHTML = `
+    <div class="rag-area-card-header">
+      <div>
+        <div class="rag-area-code">${area.code}</div>
+        <div class="rag-area-name">${area.name}</div>
+      </div>
+      <div class="rag-badge ${lvlClass}" title="Overall: ${lvlLabel}">${overall ?? '?'}</div>
+    </div>
+    ${area.hoa ? `<div class="rag-area-hoa">HoA: ${area.hoa}</div>` : ''}
+    <div class="dim-mini-row">${dimMinis}</div>
+  `;
+  return div;
+}
+
+function filterAreas(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.rag-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAreaList();
+}
+
+function searchAreas(q) {
+  currentSearch = q;
+  renderAreaList();
+}
+
+// ── OPEN AREA ─────────────────────────────────────────────────────────────────
+function openArea(code) {
+  CURRENT_AREA = code;
+  renderAreaList(); // refresh to show active state
+  const area = AREA_RAGS.areas[code];
+  if (!area) return;
+  renderAreaDetail(area);
+}
+
+function renderAreaDetail(area) {
+  const detail = document.getElementById('area-detail');
+  const overall = area.overallRagOverride ?? area.overallRag;
+  const calcOverall = calculateOverall(area);
+  const lvl = overall ?? calcOverall;
+  const bg = lvl ? `var(--rag-${lvl})` : '#6b7280';
+  const pending = area.actions?.filter(a => a.status !== 'completed').length ?? 0;
+  const strengths = area.strengths?.length ?? 0;
+  const afis = area.afis?.length ?? 0;
+
+  detail.innerHTML = `
+    <div class="area-header">
+      <div class="area-header-left">
+        <h2>${area.name} <span style="font-family:var(--font-mono);font-size:.9rem;font-weight:400;color:var(--color-slate);">${area.code}</span></h2>
+        <div class="area-header-meta">
+          ${area.hoa ? `HoA: <strong>${area.hoa}</strong>` : '<em>HoA not set</em>'}
+          ${area.digitalLead ? ` · DL: <strong>${area.digitalLead}</strong>` : ' · <em>DL not yet identified</em>'}
+          ${area.lastAssessed ? ` · Last assessed: <strong>${area.lastAssessed}</strong>` : ' · <em>Not yet assessed</em>'}
+        </div>
+      </div>
+      <div class="area-header-actions">
+        <button class="btn btn-secondary btn-sm" onclick="editAreaMeta('${area.code}')">✏ Edit details</button>
+        <button class="btn btn-primary btn-sm" onclick="saveArea('${area.code}')">💾 Save</button>
+        <button class="btn btn-secondary btn-sm" onclick="exportAreaPlan('${area.code}')">⬇ Export plan</button>
+      </div>
+    </div>
+
+    <!-- Overall score -->
+    <div class="overall-score-bar" style="background:${bg}20;border:2px solid ${bg};">
+      <div class="rag-badge ${lvl ? LEVEL_CLASSES[lvl] : 'na'}" style="width:52px;height:52px;font-size:1.6rem;border-radius:50%;">${lvl ?? '?'}</div>
+      <div>
+        <div class="overall-score-label" style="color:${bg};">${lvl ? LEVEL_LABELS[lvl] : 'Not yet assessed'}</div>
+        <div class="overall-score-rule">
+          ${calcOverall ? `Auto-calculated: Level ${calcOverall} · ` : ''}
+          ${area.overallRagOverride ? `<strong>Manually set: Level ${area.overallRagOverride}</strong>` : ''}
+          ${!calcOverall && !area.overallRagOverride ? 'Rate dimensions below to generate overall score' : ''}
+        </div>
+        <div class="override-section">
+          <div class="override-row">
+            <label>Override overall:</label>
+            <select id="override-select-${area.code}" onchange="setOverride('${area.code}',this.value)">
+              <option value="">Use calculated (Level ${calcOverall ?? '?'})</option>
+              ${[1,2,3,4,5].map(l => `<option value="${l}" ${area.overallRagOverride==l?'selected':''}>${l} — ${LEVEL_LABELS[l]}</option>`).join('')}
+            </select>
+            <input type="text" id="override-rationale-${area.code}" placeholder="Rationale for override…"
+              value="${area.overallRagOverrideRationale||''}"
+              style="flex:1;min-width:180px;font-size:.78rem;padding:.3rem .5rem;">
+          </div>
+        </div>
+      </div>
+      <div style="margin-left:auto;text-align:right;font-size:.78rem;color:${bg};">
+        <div><strong>${pending}</strong> actions pending</div>
+        <div><strong>${strengths}</strong> strengths · <strong>${afis}</strong> AFIs</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="area-tabs" role="tablist">
+      <button class="area-tab active" onclick="showAreaTab('framework','${area.code}',this)" role="tab">Framework</button>
+      <button class="area-tab" onclick="showAreaTab('safi','${area.code}',this)" role="tab">Strengths & AFIs</button>
+      <button class="area-tab" onclick="showAreaTab('actions','${area.code}',this)" role="tab">Action Plan</button>
+      <button class="area-tab" onclick="showAreaTab('history','${area.code}',this)" role="tab">History</button>
+    </div>
+
+    <!-- Framework tab -->
+    <div class="area-tab-panel active" id="tab-framework-${area.code}">
+      ${renderFrameworkGrid(area)}
+    </div>
+
+    <!-- S+AFI tab -->
+    <div class="area-tab-panel" id="tab-safi-${area.code}">
+      ${renderSAFI(area)}
+    </div>
+
+    <!-- Actions tab -->
+    <div class="area-tab-panel" id="tab-actions-${area.code}">
+      ${renderActions(area)}
+    </div>
+
+    <!-- History tab -->
+    <div class="area-tab-panel" id="tab-history-${area.code}">
+      ${renderHistory(area)}
+    </div>
+  `;
+}
+
+// ── FRAMEWORK GRID ────────────────────────────────────────────────────────────
+function renderFrameworkGrid(area) {
+  if (!FRAMEWORK) return '<p>Framework not loaded</p>';
+  const levels = FRAMEWORK.levels;
+  const dims = FRAMEWORK.dimensions;
+
+  let html = '<div class="framework-grid">';
+
+  // Header row
+  html += `<div class="fg-header-corner">Dimension</div>`;
+  levels.forEach(l => {
+    const bg = `var(--rag-${l.id})`;
+    html += `<div class="fg-level-header" style="background:${bg};color:#fff;" title="${l.summary}">
+      <div style="font-size:.9rem;">Level ${l.id}</div>
+      <div style="font-weight:400;font-size:.68rem;">${l.label}</div>
+    </div>`;
+  });
+
+  // Dimension rows
+  dims.forEach(dim => {
+    const currentRating = area.dimensions[dim.id]?.rating;
+    const dimBg = currentRating ? `var(--rag-${currentRating})` : 'var(--rag-none)';
+    const dimLabel = currentRating ? `Level ${currentRating}` : 'Not rated';
+
+    html += `<div class="fg-dim-label">
+      <div>${dim.shortName}</div>
+      <div class="fg-dim-score" style="background:${dimBg};color:#fff;">${dimLabel}</div>
+      ${area.dimensions[dim.id]?.notes ? `<div style="font-size:.65rem;color:var(--color-slate);margin-top:.2rem;font-style:italic;">"${area.dimensions[dim.id].notes.substring(0,40)}…"</div>` : ''}
+    </div>`;
+
+    levels.forEach(l => {
+      const isSelected = currentRating === l.id;
+      const bg = isSelected ? `var(--rag-${l.id})` : `var(--rag-${l.id}-bg, #f9fafb)`;
+      const textCol = isSelected ? '#fff' : `var(--rag-${l.id}-text, #374151)`;
+      html += `<div class="fg-cell ${isSelected ? 'selected' : ''}"
+        style="background:${bg};color:${textCol};"
+        onclick="selectDimLevel('${area.code}','${dim.id}',${l.id})"
+        title="Click to set ${dim.shortName} = Level ${l.id}: ${l.label}"
+        role="button" tabindex="0" aria-pressed="${isSelected}"
+        onkeydown="if(event.key==='Enter'||event.key===' ')selectDimLevel('${area.code}','${dim.id}',${l.id})">
+        ${dim.descriptors[l.id]}
+      </div>`;
+    });
+  });
+
+  html += '</div>';
+  html += `<p style="font-size:.75rem;color:var(--color-slate);margin-top:.5rem;">Click a cell to rate that dimension. Click again to deselect. Changes auto-save when you click 💾 Save above.</p>`;
+
+  // Dimension notes
+  html += `<div style="margin-top:1rem;">
+    <div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem;font-family:var(--font-serif);">Notes per dimension</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem;">
+      ${dims.map(d => `
+        <div>
+          <label style="font-size:.75rem;font-weight:600;" for="notes-${area.code}-${d.id}">${d.shortName}</label>
+          <textarea id="notes-${area.code}-${d.id}" rows="2" style="font-size:.78rem;width:100%;margin-top:.2rem;"
+            placeholder="Evidence, rationale, context…">${area.dimensions[d.id]?.notes || ''}</textarea>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+
+  return html;
+}
+
+// ── SCORING ────────────────────────────────────────────────────────────────────
+function calculateOverall(area) {
+  if (!FRAMEWORK) return null;
+  const ratedDims = FRAMEWORK.dimensions
+    .map(d => area.dimensions[d.id]?.rating)
+    .filter(r => r !== null && r !== undefined);
+
+  if (ratedDims.length === 0) return null;
+
+  const hasLevel5 = ratedDims.some(r => r === 5);
+  const level4Plus = ratedDims.filter(r => r >= 4).length;
+  const level1or2  = ratedDims.filter(r => r <= 2).length;
+  const level2or3  = ratedDims.filter(r => r >= 2 && r <= 3).length;
+
+  if (hasLevel5 || level4Plus >= 2) return 4; // tip to 4/5
+  if (level1or2 >= 4) return 2;
+  if (level2or3 >= 3 && !hasLevel5) return 3;
+  return Math.round(ratedDims.reduce((a,b) => a+b, 0) / ratedDims.length);
+}
+
+function selectDimLevel(code, dimId, level) {
+  const area = AREA_RAGS.areas[code];
+  if (!area) return;
+
+  // Toggle off if already selected
+  const current = area.dimensions[dimId].rating;
+  area.dimensions[dimId].rating = (current === level) ? null : level;
+  area.dimensions[dimId].lastUpdated = new Date().toISOString().slice(0,10);
+
+  // Recalculate and update overall
+  const calc = calculateOverall(area);
+  area.overallRag = calc;
+  if (area.assessmentStatus !== 'assessed' && calc) {
+    area.assessmentStatus = 'assessed';
+    area.lastAssessed = new Date().toISOString().slice(0,10);
+  }
+
+  // Re-render area detail and sidebar
+  renderAreaDetail(area);
+  showAreaTab('framework', code, null);
+  renderAreaList();
+}
+
+function setOverride(code, val) {
+  const area = AREA_RAGS.areas[code];
+  area.overallRagOverride = val ? parseInt(val) : null;
+  // Don't re-render fully — just update the rationale capture on blur
+}
+
+// ── S+AFI ──────────────────────────────────────────────────────────────────────
+function renderSAFI(area) {
+  const strengths = area.strengths || [];
+  const afis = area.afis || [];
+
+  return `
+    <div class="safi-columns">
+      <div>
+        <div style="font-family:var(--font-serif);font-size:1rem;font-weight:600;margin-bottom:.75rem;color:var(--rag-1);">
+          ✓ Strengths (${strengths.length})
+        </div>
+        <div class="safi-list" id="strengths-list-${area.code}">
+          ${strengths.map((s,i) => `
+            <div class="safi-item strength">
+              ${s.text}
+              <div class="safi-actions">
+                <button class="safi-icon-btn" onclick="removeSAFI('${area.code}','strength',${i})" aria-label="Remove">✕</button>
+              </div>
+            </div>
+          `).join('') || '<p style="font-size:.82rem;color:var(--color-slate);font-style:italic;">No strengths logged yet.</p>'}
+        </div>
+        <div class="safi-add-form" style="margin-top:.75rem;">
+          <textarea id="add-strength-${area.code}" placeholder="Add a strength…" rows="2" style="flex:1;min-width:160px;font-size:.82rem;"></textarea>
+          <button class="btn btn-primary btn-sm" onclick="addSAFI('${area.code}','strength')">Add</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-serif);font-size:1rem;font-weight:600;margin-bottom:.75rem;color:var(--rag-4);">
+          ⚠ Areas for Improvement (${afis.length})
+        </div>
+        <div class="safi-list" id="afis-list-${area.code}">
+          ${afis.map((a,i) => `
+            <div class="safi-item afi ${a.priority}">
+              <div style="font-size:.68rem;font-weight:600;margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.5px;">${a.priority}</div>
+              ${a.text}
+              <div class="safi-actions">
+                <button class="safi-icon-btn" onclick="removeSAFI('${area.code}','afi',${i})" aria-label="Remove">✕</button>
+              </div>
+            </div>
+          `).join('') || '<p style="font-size:.82rem;color:var(--color-slate);font-style:italic;">No AFIs logged yet.</p>'}
+        </div>
+        <div class="safi-add-form" style="margin-top:.75rem;flex-direction:column;gap:.4rem;">
+          <textarea id="add-afi-${area.code}" placeholder="Add an AFI…" rows="2" style="font-size:.82rem;"></textarea>
+          <div style="display:flex;gap:.4rem;">
+            <select id="afi-priority-${area.code}" class="safi-priority-sel" style="font-size:.78rem;">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+              <option value="critical">Critical</option>
+            </select>
+            <button class="btn btn-primary btn-sm" onclick="addSAFI('${area.code}','afi')">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function addSAFI(code, type) {
+  const area = AREA_RAGS.areas[code];
+  if (type === 'strength') {
+    const el = document.getElementById(`add-strength-${code}`);
+    if (!el.value.trim()) return;
+    area.strengths.push({ id: `s-${code}-${Date.now()}`, text: el.value.trim(), priority: 'strength', dateAdded: new Date().toISOString().slice(0,10), evidenceLinks: [] });
+    el.value = '';
+  } else {
+    const el = document.getElementById(`add-afi-${code}`);
+    const pr = document.getElementById(`afi-priority-${code}`);
+    if (!el.value.trim()) return;
+    area.afis.push({ id: `afi-${code}-${Date.now()}`, text: el.value.trim(), priority: pr.value, dateAdded: new Date().toISOString().slice(0,10), evidenceLinks: [] });
+    el.value = '';
+  }
+  showAreaTab('safi', code, null);
+  renderAreaDetail(area);
+  showAreaTab('safi', code, null);
+}
+
+function removeSAFI(code, type, idx) {
+  const area = AREA_RAGS.areas[code];
+  if (type === 'strength') area.strengths.splice(idx, 1);
+  else area.afis.splice(idx, 1);
+  renderAreaDetail(area);
+  showAreaTab('safi', code, null);
+}
+
+// ── ACTIONS ────────────────────────────────────────────────────────────────────
+function renderActions(area) {
+  const actions = area.actions || [];
+  const dims = FRAMEWORK?.dimensions || [];
+
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+      <div class="action-plan-filters">
+        <button class="rag-filter-btn active" onclick="filterActions('all',this,'${area.code}')">All (${actions.length})</button>
+        <button class="rag-filter-btn" onclick="filterActions('not-started',this,'${area.code}')">Not started</button>
+        <button class="rag-filter-btn" onclick="filterActions('in-progress',this,'${area.code}')">In progress</button>
+        <button class="rag-filter-btn" onclick="filterActions('completed',this,'${area.code}')">Completed</button>
+        <button class="rag-filter-btn" onclick="filterActions('at-risk',this,'${area.code}')">At risk</button>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="toggleAddAction('${area.code}')">+ Add action</button>
+    </div>
+
+    <div id="actions-list-${area.code}">
+      ${actions.length ? actions.map((a,i) => renderActionCard(a, i, area.code)).join('') : '<p style="color:var(--color-slate);font-size:.85rem;font-style:italic;">No actions yet. Click + Add action to begin.</p>'}
+    </div>
+
+    <div class="add-action-form" id="add-action-form-${area.code}">
+      <div style="font-family:var(--font-serif);font-size:.95rem;font-weight:600;margin-bottom:.75rem;">New Action</div>
+      <div class="add-action-grid">
+        <div>
+          <label style="font-size:.75rem;">Action <span class="req">*</span></label>
+          <input type="text" id="aa-action-${area.code}" placeholder="What needs to happen?" style="width:100%;font-size:.82rem;">
+        </div>
+        <div>
+          <label style="font-size:.75rem;">Due date</label>
+          <input type="date" id="aa-date-${area.code}" style="width:100%;font-size:.82rem;">
+        </div>
+        <div>
+          <label style="font-size:.75rem;">Owner</label>
+          <select id="aa-owner-${area.code}" style="width:100%;font-size:.82rem;">
+            <option value="Graeme">Graeme</option>
+            <option value="DL">Digital Lead</option>
+            <option value="HoA">HoA</option>
+            <option value="IT">IT / Infrastructure</option>
+            <option value="SEND">SEND Team</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.75rem;">Urgency</label>
+          <select id="aa-urgency-${area.code}" style="width:100%;font-size:.82rem;">
+            <option value="critical">Critical</option>
+            <option value="high" selected>High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
+        <div>
+          <label style="font-size:.75rem;">Dimension</label>
+          <select id="aa-dim-${area.code}" style="width:100%;font-size:.82rem;">
+            <option value="">– general –</option>
+            ${dims.map(d => `<option value="${d.id}">${d.shortName}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.75rem;">Your role</label>
+          <select id="aa-role-${area.code}" style="width:100%;font-size:.82rem;">
+            <option value="Facilitator">Facilitator</option>
+            <option value="Coach">Coach</option>
+            <option value="Trainer">Trainer</option>
+            <option value="Coordinator">Coordinator</option>
+            <option value="Observer">Observer</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.75rem;">Stakeholders</label>
+          <input type="text" id="aa-stakeholders-${area.code}" placeholder="Who else needs to be there?" style="width:100%;font-size:.82rem;">
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem;">
+        <button class="btn btn-primary btn-sm" onclick="addAction('${area.code}')">Add action</button>
+        <button class="btn btn-secondary btn-sm" onclick="toggleAddAction('${area.code}')">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderActionCard(action, idx, code) {
+  const urgency = action.urgency || 'medium';
+  const status = action.status || 'not-started';
+  const dimName = FRAMEWORK?.dimensions.find(d => d.id === action.dimension)?.shortName || '';
+
+  return `
+    <div class="action-card ${urgency}">
+      <div>
+        <div class="action-text">${action.action}</div>
+        <div class="action-meta">
+          ${action.dueDate ? `<span>Due: <strong>${action.dueDate}</strong></span>` : ''}
+          ${action.owner ? `<span>Owner: <strong>${action.owner}</strong></span>` : ''}
+          ${dimName ? `<span>Dim: <strong>${dimName}</strong></span>` : ''}
+          ${action.stakeholders ? `<span>With: ${action.stakeholders}</span>` : ''}
+        </div>
+        <div style="display:flex;gap:.4rem;margin-top:.4rem;flex-wrap:wrap;">
+          ${action.role ? `<span class="action-role">${action.role}</span>` : ''}
+          <span class="action-status ${status}">${status.replace('-',' ')}</span>
+        </div>
+        ${action.notes ? `<div style="font-size:.75rem;color:var(--color-slate);margin-top:.3rem;font-style:italic;">${action.notes}</div>` : ''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.3rem;">
+        <select style="font-size:.72rem;padding:.2rem .4rem;" onchange="updateActionStatus('${code}',${idx},this.value)" aria-label="Update status">
+          ${['not-started','in-progress','completed','at-risk'].map(s => `<option value="${s}" ${status===s?'selected':''}>${s.replace('-',' ')}</option>`).join('')}
+        </select>
+        <button class="btn btn-icon btn-sm" onclick="removeAction('${code}',${idx})" aria-label="Remove action">✕</button>
+      </div>
+    </div>
+  `;
+}
+
+function toggleAddAction(code) {
+  const form = document.getElementById(`add-action-form-${code}`);
+  form.classList.toggle('open');
+}
+
+function addAction(code) {
+  const area = AREA_RAGS.areas[code];
+  const action = document.getElementById(`aa-action-${code}`).value.trim();
+  if (!action) { showToast('Enter an action first', 'error'); return; }
+  area.actions.push({
+    id: `act-${code}-${Date.now()}`,
+    phase: 'custom',
+    dueDate: document.getElementById(`aa-date-${code}`).value,
+    action,
+    owner: document.getElementById(`aa-owner-${code}`).value,
+    role: document.getElementById(`aa-role-${code}`).value,
+    stakeholders: document.getElementById(`aa-stakeholders-${code}`).value,
+    urgency: document.getElementById(`aa-urgency-${code}`).value,
+    dimension: document.getElementById(`aa-dim-${code}`).value,
+    status: 'not-started',
+    completedDate: null, evidence: '', notes: ''
+  });
+  renderAreaDetail(area);
+  showAreaTab('actions', code, null);
+  showToast('Action added', 'success');
+}
+
+function updateActionStatus(code, idx, status) {
+  const area = AREA_RAGS.areas[code];
+  area.actions[idx].status = status;
+  if (status === 'completed') area.actions[idx].completedDate = new Date().toISOString().slice(0,10);
+  showToast(`Status updated: ${status.replace('-',' ')}`, 'success');
+  renderAreaList();
+}
+
+function removeAction(code, idx) {
+  AREA_RAGS.areas[code].actions.splice(idx, 1);
+  renderAreaDetail(AREA_RAGS.areas[code]);
+  showAreaTab('actions', code, null);
+}
+
+function filterActions(filter, btn, code) {
+  document.querySelectorAll(`#tab-actions-${code} .rag-filter-btn`).forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const area = AREA_RAGS.areas[code];
+  const filtered = filter === 'all' ? area.actions : area.actions.filter(a => a.status === filter);
+  const list = document.getElementById(`actions-list-${code}`);
+  list.innerHTML = filtered.map((a,i) => renderActionCard(a, area.actions.indexOf(a), code)).join('') ||
+    '<p style="color:var(--color-slate);font-size:.85rem;font-style:italic;">No actions match this filter.</p>';
+}
+
+// ── HISTORY ────────────────────────────────────────────────────────────────────
+function renderHistory(area) {
+  const history = area.ratingHistory || [];
+  if (!history.length) return '<p style="color:var(--color-slate);font-style:italic;font-size:.85rem;">No history yet. History is recorded each time you save a rating.</p>';
+  return history.slice().reverse().map(h => `
+    <div class="history-item">
+      <div class="history-dot"></div>
+      <div class="history-content">
+        <div class="history-date">${h.date} · ${h.changedBy || 'Graeme Wright'}</div>
+        <div style="margin-top:.25rem;">
+          Overall: <strong>${h.overallRag ? `Level ${h.overallRag} — ${LEVEL_LABELS[h.overallRag]}` : 'Not assessed'}</strong>
+        </div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:.25rem;">
+          ${Object.entries(h.dimensions || {}).map(([id,r]) => {
+            const name = FRAMEWORK?.dimensions.find(d=>d.id===id)?.shortName || id;
+            const bg = r ? DIM_COLOURS[r] : 'var(--rag-none)';
+            return `<span style="font-size:.7rem;background:${bg};color:#fff;padding:.15rem .4rem;border-radius:4px;">${name}: ${r ?? '–'}</span>`;
+          }).join('')}
+        </div>
+        ${h.notes ? `<div style="font-size:.75rem;color:var(--color-slate);margin-top:.2rem;font-style:italic;">"${h.notes}"</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── SAVE AREA ──────────────────────────────────────────────────────────────────
+function saveArea(code) {
+  const area = AREA_RAGS.areas[code];
+
+  // Read override rationale
+  const rationaleEl = document.getElementById(`override-rationale-${code}`);
+  if (rationaleEl) area.overallRagOverrideRationale = rationaleEl.value;
+
+  // Read dimension notes
+  if (FRAMEWORK) {
+    FRAMEWORK.dimensions.forEach(d => {
+      const noteEl = document.getElementById(`notes-${code}-${d.id}`);
+      if (noteEl) area.dimensions[d.id].notes = noteEl.value;
+    });
+  }
+
+  // Push to history
+  const calc = calculateOverall(area);
+  area.ratingHistory.push({
+    date: new Date().toISOString().slice(0,10),
+    overallRag: area.overallRagOverride ?? calc,
+    dimensions: Object.fromEntries(Object.entries(area.dimensions).map(([k,v]) => [k, v.rating])),
+    changedBy: 'Graeme Wright',
+    notes: area.overallRagOverrideRationale || ''
+  });
+
+  area.assessmentStatus = 'assessed';
+  area.lastAssessed = new Date().toISOString().slice(0,10);
+
+  showToast(`${area.name} saved — click Export to download area-rags.json`, 'success');
+  renderAreaList();
+}
+
+// ── EDIT META ──────────────────────────────────────────────────────────────────
+function editAreaMeta(code) {
+  const area = AREA_RAGS.areas[code];
+  const hoa = prompt('Head of Area name:', area.hoa || '');
+  if (hoa !== null) area.hoa = hoa;
+  const dl = prompt('Digital Lead name:', area.digitalLead || '');
+  if (dl !== null) area.digitalLead = dl;
+  renderAreaDetail(area);
+  renderAreaList();
+}
+
+// ── TABS ───────────────────────────────────────────────────────────────────────
+function showAreaTab(tabId, code, btn) {
+  document.querySelectorAll(`[id^="tab-"][id$="-${code}"]`).forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.area-tab').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(`tab-${tabId}-${code}`);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    // Find the right tab button by text content
+    const tabMap = {framework:0,safi:1,actions:2,history:3};
+    const tabs = document.querySelectorAll('.area-tab');
+    if (tabs[tabMap[tabId]]) tabs[tabMap[tabId]].classList.add('active');
+  }
+}
+
+// ── EXPORT ─────────────────────────────────────────────────────────────────────
+function exportData() {
+  if (!AREA_RAGS) { showToast('No data to export', 'error'); return; }
+  const blob = new Blob([JSON.stringify(AREA_RAGS, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `area-rags-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  showToast('area-rags.json downloaded — commit to GitHub to make permanent', 'success');
+}
+
+function exportAreaPlan(code) {
+  const area = AREA_RAGS.areas[code];
+  const overall = area.overallRagOverride ?? area.overallRag;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${area.name} — Digital Action Plan</title>
+  <style>body{font-family:Georgia,serif;max-width:800px;margin:2rem auto;color:#0c1f35;padding:1rem;}
+  h1{font-size:1.6rem;}h2{font-size:1.1rem;border-bottom:2px solid #d6d3cb;padding-bottom:.25rem;margin-top:1.5rem;}
+  .rag{display:inline-block;padding:.2rem .7rem;border-radius:4px;font-weight:700;font-size:.9rem;color:#fff;}
+  .l1{background:#15803d}.l2{background:#65a30d}.l3{background:#d97706}.l4{background:#dc2626}.l5{background:#7f1d1d}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;}th,td{padding:.4rem .6rem;border:1px solid #d6d3cb;text-align:left;}
+  th{background:#f5f4f0;}tr:nth-child(even){background:#fafafa;}
+  </style></head><body>
+  <h1>${area.name} (${area.code})<br><small style="font-weight:400;font-size:.8rem;">Digital Action Plan · ${new Date().toLocaleDateString('en-GB')}</small></h1>
+  <p>HoA: <strong>${area.hoa||'TBC'}</strong> · Digital Lead: <strong>${area.digitalLead||'TBC'}</strong> · Last assessed: ${area.lastAssessed||'Not yet'}</p>
+  <p>Overall RAG: <span class="rag l${overall||'na'}">${overall ? `Level ${overall} — ${LEVEL_LABELS[overall]}` : 'Not assessed'}</span></p>
+  <h2>Dimension Ratings</h2>
+  <table><tr><th>Dimension</th><th>Level</th><th>Rating</th><th>Notes</th></tr>
+  ${(FRAMEWORK?.dimensions||[]).map(d => {const r=area.dimensions[d.id]?.rating;return`<tr><td>${d.name}</td><td><span class="rag l${r||'na'}">${r?`Level ${r} — ${LEVEL_LABELS[r]}`:'Not assessed'}</span></td><td>${r||'–'}</td><td>${area.dimensions[d.id]?.notes||''}</td></tr>`;}).join('')}
+  </table>
+  <h2>Strengths</h2><ul>${(area.strengths||[]).map(s=>`<li>${s.text}</li>`).join('')||'<li><em>None logged yet</em></li>'}</ul>
+  <h2>Areas for Improvement</h2><ul>${(area.afis||[]).map(a=>`<li><strong>[${a.priority?.toUpperCase()}]</strong> ${a.text}</li>`).join('')||'<li><em>None logged yet</em></li>'}</ul>
+  <h2>Action Plan</h2>
+  <table><tr><th>Action</th><th>Due</th><th>Owner</th><th>Role</th><th>Urgency</th><th>Status</th></tr>
+  ${(area.actions||[]).map(a=>`<tr><td>${a.action}</td><td>${a.dueDate||'–'}</td><td>${a.owner||'–'}</td><td>${a.role||'–'}</td><td>${a.urgency||'–'}</td><td>${a.status||'–'}</td></tr>`).join('')||'<tr><td colspan="6"><em>No actions yet</em></td></tr>'}
+  </table>
+  </body></html>`;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `${area.code}-action-plan-${new Date().toISOString().slice(0,10)}.html`; a.click();
+  showToast(`${area.name} action plan exported`, 'success');
+}
+
+// ── DARK MODE ──────────────────────────────────────────────────────────────────
+function toggleDarkMode() {
+  DARK_MODE = !DARK_MODE;
+  localStorage.setItem('dpc-dark-mode', String(DARK_MODE));
+  document.body.classList.toggle('dark-mode', DARK_MODE);
+  document.querySelector('.dark-mode-toggle').textContent = DARK_MODE ? '☀️ Light mode' : '🌙 Dark mode';
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────────────
+function showToast(msg, type='info') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.style.cssText = `padding:.65rem 1rem;border-radius:8px;font-size:.82rem;margin-bottom:.4rem;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2);background:${type==='success'?'#15803d':type==='error'?'#b91c1c':'#0c1f35'}`;
+  t.textContent = msg; c.appendChild(t);
+  setTimeout(() => t.remove(), 3200);
+}
+</script>
+</body>
+</html>
