@@ -278,7 +278,7 @@ const WebParts = {
         label: row.querySelector('.evidence-label')?.value
       })).filter(e => e.url)
     };
-  }
+  },
 
   // ── RESOURCE LINKS — attach files, links, SharePoint docs ─────────────────
   // Used for: Resources in COGs, coaching planning materials, session resources
