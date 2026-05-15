@@ -1,0 +1,2292 @@
+{
+  "_note": "RAG tracking data for all 34 curriculum areas. Edit via RAG Tracker in the hub.",
+  "areas": {
+    "BUS": {
+      "code": "BUS",
+      "name": "Business & Tourism",
+      "hoa": "Ben Melhuish",
+      "digitalLead": "TBC",
+      "overallRag": 2,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "assessed",
+      "lastAssessed": "2026-05-11",
+      "dimensions": {
+        "d1": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d2": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d3": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d4": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d5": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d6": {
+          "rating": 1,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        }
+      },
+      "strengths": [
+        {
+          "id": "s-BUS-1",
+          "text": "Staff confident with AI, project management tools, dashboards",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUS-2",
+          "text": "Excellent Teams adoption across all learning spaces",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUS-3",
+          "text": "Strong device bank (417 PCs, well-maintained, accessible)",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUS-4",
+          "text": "AT (Read&Write) integrated where appropriate",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUS-5",
+          "text": "Clear digital skills pathway for business/tourism sector",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUS-6",
+          "text": "Learner outcomes strong",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "afis": [
+        {
+          "id": "afi-BUS-1",
+          "text": "Staff less confident with CRMs and Digital Booking Systems",
+          "priority": "high",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-BUS-2",
+          "text": "Device access equity for non-bursary learners",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-BUS-3",
+          "text": "Accessibility training not yet systematic",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "act-BUS-1",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Confirm Digital Lead identity with Ben Melhuish",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Ben Melhuish",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d6",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUS-2",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "CRM barrier audit: talk to 2\u20133 staff about barriers to CRM use",
+          "owner": "DL",
+          "role": "Facilitator",
+          "stakeholders": "Teaching staff",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d1",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUS-3",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Schedule AT showcase: demo Immersive Reader, Accessibility Checker",
+          "owner": "Graeme",
+          "role": "Trainer",
+          "stakeholders": "Ben Melhuish, staff",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d5",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUS-4",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Verify 100% Century Initial Assessment completion",
+          "owner": "DL",
+          "role": "Coach",
+          "stakeholders": "HoA",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d3",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "ratingHistory": [
+        {
+          "date": "2026-05-11",
+          "overallRag": 2,
+          "dimensions": {
+            "d1": 2,
+            "d2": 2,
+            "d3": 2,
+            "d4": 2,
+            "d5": 2,
+            "d6": 1
+          },
+          "changedBy": "Graeme Wright",
+          "notes": "Initial audit-based rating from HoA Digital Skills Audit"
+        }
+      ],
+      "notes": ""
+    },
+    "HBH": {
+      "code": "HBH",
+      "name": "Hair, Beauty & Hospitality",
+      "hoa": "Jenna Ratcliffe",
+      "digitalLead": "Tracey & Sharon",
+      "overallRag": 2,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "assessed",
+      "lastAssessed": "2026-05-11",
+      "dimensions": {
+        "d1": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d2": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d3": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d4": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d5": {
+          "rating": 4,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d6": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        }
+      },
+      "strengths": [
+        {
+          "id": "s-HBH-1",
+          "text": "Strong portfolio and practical digital skills embedded in sector practice",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-HBH-2",
+          "text": "Good DL engagement \u2014 Tracey and Sharon both ready",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-HBH-3",
+          "text": "Positive learner attitude to digital tools",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-HBH-4",
+          "text": "Social media literacy strong (sector-relevant)",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "afis": [
+        {
+          "id": "afi-HBH-1",
+          "text": "Accessibility practice significantly below standard \u2014 URGENT",
+          "priority": "high",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-HBH-2",
+          "text": "AT not offered proactively to learners",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-HBH-3",
+          "text": "Resources not WCAG 2.2 AA compliant",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-HBH-4",
+          "text": "Accessibility checker not used",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "act-HBH-1",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "URGENT: Accessibility Teach-Meet \u2014 all staff attend. Tracey and Sharon co-facilitate",
+          "owner": "Graeme",
+          "role": "Trainer",
+          "stakeholders": "Jenna Ratcliffe, Tracey, Sharon, all staff",
+          "status": "not-started",
+          "urgency": "critical",
+          "dimension": "d5",
+          "completedDate": null,
+          "evidence": "",
+          "notes": "Dimension 5 is Level 4 \u2014 this is the single highest priority action"
+        },
+        {
+          "id": "act-HBH-2",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Investment plan: document AT and accessibility resource needs for Jenna",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Jenna Ratcliffe",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-HBH-3",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Century IA completion check and specialist skills rubric design (portfolio, social media)",
+          "owner": "DL",
+          "role": "Coach",
+          "stakeholders": "Jenna Ratcliffe",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d3",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "ratingHistory": [
+        {
+          "date": "2026-05-11",
+          "overallRag": 2,
+          "dimensions": {
+            "d1": 2,
+            "d2": 2,
+            "d3": 2,
+            "d4": 2,
+            "d5": 4,
+            "d6": 2
+          },
+          "changedBy": "Graeme Wright",
+          "notes": "Initial audit-based rating from HoA Digital Skills Audit"
+        }
+      ],
+      "notes": ""
+    },
+    "SMS": {
+      "code": "SMS",
+      "name": "Sixth Form",
+      "hoa": "Maria Miles",
+      "digitalLead": "Ethan",
+      "overallRag": 3,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "assessed",
+      "lastAssessed": "2026-05-11",
+      "dimensions": {
+        "d1": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d2": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d3": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d4": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d5": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d6": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        }
+      },
+      "strengths": [
+        {
+          "id": "s-SMS-1",
+          "text": "High learner engagement with digital tools",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-SMS-2",
+          "text": "Strong Ethan (DL) engagement and capability",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-SMS-3",
+          "text": "Century IA adoption underway",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-SMS-4",
+          "text": "Good baseline infrastructure",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "afis": [
+        {
+          "id": "afi-SMS-1",
+          "text": "AI staff capability inconsistent across subject leads",
+          "priority": "high",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-SMS-2",
+          "text": "Teams environment consistency varies between staff",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-SMS-3",
+          "text": "Specialist digital skills per A-Level not yet mapped",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-SMS-4",
+          "text": "Computer Science software gaps unresolved",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "act-SMS-1",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Teams consistency workshop: agree team structure, channel naming, file management standard",
+          "owner": "Graeme",
+          "role": "Trainer",
+          "stakeholders": "Maria Miles, all staff",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d1",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-SMS-2",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Digital readiness profile: Maria articulates key gaps and owns plan",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Maria Miles",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-SMS-3",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Specialist digital skills mapping per A-Level subject",
+          "owner": "DL",
+          "role": "Facilitator",
+          "stakeholders": "Subject leads",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d3",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-SMS-4",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "AI + Academic Integrity workshop design with subject leads",
+          "owner": "Graeme",
+          "role": "Facilitator",
+          "stakeholders": "Ethan, subject leads",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d4",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "ratingHistory": [
+        {
+          "date": "2026-05-11",
+          "overallRag": 3,
+          "dimensions": {
+            "d1": 3,
+            "d2": 3,
+            "d3": 2,
+            "d4": 3,
+            "d5": 2,
+            "d6": 2
+          },
+          "changedBy": "Graeme Wright",
+          "notes": "Initial audit-based rating from HoA Digital Skills Audit"
+        }
+      ],
+      "notes": ""
+    },
+    "BUI": {
+      "code": "BUI",
+      "name": "Building Services & Construction",
+      "hoa": "Richard Hanney",
+      "digitalLead": "Steven Jakeway, Christie Ross",
+      "overallRag": 3,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "assessed",
+      "lastAssessed": "2026-05-11",
+      "dimensions": {
+        "d1": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d2": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d3": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d4": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d5": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d6": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        }
+      },
+      "strengths": [
+        {
+          "id": "s-BUI-1",
+          "text": "Strong digital portfolio systems and online evidence tracking",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUI-2",
+          "text": "Both DLs (Jakeway and Ross) clearly identified and engaged",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUI-3",
+          "text": "Good learner exposure to industry-standard tools",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-BUI-4",
+          "text": "Positive trajectory \u2014 clear improvement direction",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "afis": [
+        {
+          "id": "afi-BUI-1",
+          "text": "Network connectivity issues in workshop areas \u2014 explicit blocker",
+          "priority": "high",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-BUI-2",
+          "text": "CAD/simulation software gaps (sector-critical tools unavailable)",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-BUI-3",
+          "text": "Strategic digital plan not yet documented",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-BUI-4",
+          "text": "Accessibility practices not systematic in workshop environments",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "act-BUI-1",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Infrastructure audit: map network pain points in workshop areas with Jakeway and Ross",
+          "owner": "DL",
+          "role": "Facilitator",
+          "stakeholders": "Richard Hanney, IT",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUI-2",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "CAD/simulation software requirements audit \u2014 which tools, how many licences, current gaps",
+          "owner": "DL",
+          "role": "Coordinator",
+          "stakeholders": "Richard Hanney, IT, Joe A",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUI-3",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Network infrastructure escalation to IT/Joe A \u2014 timeline and cost for workshop WiFi",
+          "owner": "Graeme",
+          "role": "Facilitator",
+          "stakeholders": "Joe Abulgani, Richard Hanney",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-BUI-4",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Accessibility audit with Jakeway/Ross: observe one workshop session",
+          "owner": "DL",
+          "role": "Observer",
+          "stakeholders": "Richard Hanney",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d5",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "ratingHistory": [
+        {
+          "date": "2026-05-11",
+          "overallRag": 3,
+          "dimensions": {
+            "d1": 2,
+            "d2": 3,
+            "d3": 2,
+            "d4": 2,
+            "d5": 3,
+            "d6": 2
+          },
+          "changedBy": "Graeme Wright",
+          "notes": "Initial audit-based rating from HoA Digital Skills Audit"
+        }
+      ],
+      "notes": ""
+    },
+    "EMV": {
+      "code": "EMV",
+      "name": "Engineering & Motor Vehicle",
+      "hoa": "Felix Coles",
+      "digitalLead": "TBC",
+      "overallRag": 3,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "assessed",
+      "lastAssessed": "2026-05-11",
+      "dimensions": {
+        "d1": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d2": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d3": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d4": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d5": {
+          "rating": 3,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        },
+        "d6": {
+          "rating": 2,
+          "notes": "",
+          "lastUpdated": "2026-05-11"
+        }
+      },
+      "strengths": [
+        {
+          "id": "s-EMV-1",
+          "text": "Good learner engagement with practical digital tools",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-EMV-2",
+          "text": "Diagnostic software use embedded in sector practice",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "s-EMV-3",
+          "text": "Positive attitude to digital among staff",
+          "priority": "strength",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "afis": [
+        {
+          "id": "afi-EMV-1",
+          "text": "AI training for staff not yet in place",
+          "priority": "high",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-EMV-2",
+          "text": "Infrastructure and diagnostic software gaps identified",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-EMV-3",
+          "text": "DL not yet confirmed",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        },
+        {
+          "id": "afi-EMV-4",
+          "text": "Accessibility in workshop environments not assessed",
+          "priority": "medium",
+          "dateAdded": "2026-05-11",
+          "evidenceLinks": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "act-EMV-1",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Diagnostic software support: what tools are available, what's missing \u2014 document with Felix",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Felix Coles",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d1",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-EMV-2",
+          "phase": "week-1",
+          "dueDate": "2026-05-18",
+          "action": "Infrastructure plan: connectivity and software gaps documented and prioritised",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Felix Coles, IT",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d2",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-EMV-3",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Confirm DL identity with Felix \u2014 clarify role and expectations",
+          "owner": "Graeme",
+          "role": "Coach",
+          "stakeholders": "Felix Coles",
+          "status": "not-started",
+          "urgency": "high",
+          "dimension": "d6",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        },
+        {
+          "id": "act-EMV-4",
+          "phase": "week-2",
+          "dueDate": "2026-05-25",
+          "action": "Century IA completion and diagnostic skills rubric design",
+          "owner": "DL",
+          "role": "Coach",
+          "stakeholders": "Felix Coles",
+          "status": "not-started",
+          "urgency": "medium",
+          "dimension": "d3",
+          "completedDate": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "ratingHistory": [
+        {
+          "date": "2026-05-11",
+          "overallRag": 3,
+          "dimensions": {
+            "d1": 3,
+            "d2": 3,
+            "d3": 2,
+            "d4": 2,
+            "d5": 3,
+            "d6": 2
+          },
+          "changedBy": "Graeme Wright",
+          "notes": "Initial audit-based rating from HoA Digital Skills Audit"
+        }
+      ],
+      "notes": ""
+    },
+    "AGF": {
+      "code": "AGF",
+      "name": "Arts, Graphics & Fashion",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "AHE": {
+      "code": "AHE",
+      "name": "Access to HE",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "ANM": {
+      "code": "ANM",
+      "name": "Animal Management",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "CED": {
+      "code": "CED",
+      "name": "Community Education",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "CON": {
+      "code": "CON",
+      "name": "Construction Trades",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "DCI": {
+      "code": "DCI",
+      "name": "Digital Computing & IT",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "EEY": {
+      "code": "EEY",
+      "name": "Education & Early Years",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "EFE": {
+      "code": "EFE",
+      "name": "Engineering WBL FE",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "EGL": {
+      "code": "EGL",
+      "name": "English",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "EHE": {
+      "code": "EHE",
+      "name": "Engineering Higher Education",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "ENG": {
+      "code": "ENG",
+      "name": "Engineering",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "ESO": {
+      "code": "ESO",
+      "name": "ESOL",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "EXT": {
+      "code": "EXT",
+      "name": "External Contracts",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "FAU": {
+      "code": "FAU",
+      "name": "FIP Autism",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "FCO": {
+      "code": "FCO",
+      "name": "FIP Complex Needs",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "FEH": {
+      "code": "FEH",
+      "name": "FIP Supported Employment",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "FPL": {
+      "code": "FPL",
+      "name": "FIP Pre-Vocational",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "GMA": {
+      "code": "GMA",
+      "name": "Games, Media & Animation",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "HAC": {
+      "code": "HAC",
+      "name": "Health (incl. Health T-level)",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "MAT": {
+      "code": "MAT",
+      "name": "Maths",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "PAP": {
+      "code": "PAP",
+      "name": "Performance & Production",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "PRA": {
+      "code": "PRA",
+      "name": "Professional Apprenticeships",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "PRE": {
+      "code": "PRE",
+      "name": "Employment Services",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "PRS": {
+      "code": "PRS",
+      "name": "Professional Studies",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "PSF": {
+      "code": "PSF",
+      "name": "Public Services",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "SKB": {
+      "code": "SKB",
+      "name": "Skills Bootcamps",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "SMX": {
+      "code": "SMX",
+      "name": "SOMAX",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "SPO": {
+      "code": "SPO",
+      "name": "Sport",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    },
+    "QUA": {
+      "code": "QUA",
+      "name": "Quality & Standards",
+      "hoa": "",
+      "digitalLead": "",
+      "overallRag": null,
+      "overallRagOverride": null,
+      "overallRagOverrideRationale": "",
+      "assessmentStatus": "not-assessed",
+      "lastAssessed": null,
+      "dimensions": {
+        "d1": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d2": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d3": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d4": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d5": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        },
+        "d6": {
+          "rating": null,
+          "notes": "",
+          "lastUpdated": null
+        }
+      },
+      "strengths": [],
+      "afis": [],
+      "actions": [],
+      "ratingHistory": [],
+      "notes": ""
+    }
+  }
+}
