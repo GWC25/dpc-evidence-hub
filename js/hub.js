@@ -85,6 +85,9 @@ function loadTemplate(templateId) {
 
   const form = TemplateAssembler.buildForm(template, CONFIG);
   container.appendChild(form);
+  // Show save-as-session button
+  const sessionRow = document.getElementById('save-session-row');
+  if (sessionRow) sessionRow.style.display = 'block';
   showToast(`Loaded: ${template.name}`, 'success');
 }
 
@@ -111,6 +114,8 @@ function saveEntry(templateId) {
   // Reset dropdown and clear form container
   document.getElementById('qc-activity-type').value = '';
   document.getElementById('qc-form-container').innerHTML = '';
+  const sessionRowAfterSave = document.getElementById('save-session-row');
+  if (sessionRowAfterSave) sessionRowAfterSave.style.display = 'none';
 }
 
 // ── EVIDENCE LOG ─────────────────────────────────────────────────────────────
@@ -522,7 +527,14 @@ function saveTemplateEdits(templateId) {
   // Refresh the activity type dropdown in Quick Capture
   refreshActivityDropdown();
 
-  showToast(`"${template.name}" saved — export config.json to make permanent`, 'success');
+  // If this template is currently loaded in Quick Capture, re-render it
+  const activeSelect = document.getElementById('qc-activity-type');
+  if (activeSelect && activeSelect.value === templateId) {
+    loadTemplate(templateId);
+    showToast(`"${template.name}" saved and form updated`, 'success');
+  } else {
+    showToast(`"${template.name}" saved — select it in Quick Capture to see changes`, 'success');
+  }
 }
 
 /**
@@ -653,4 +665,131 @@ function savePeopleToConfig() {
     role: row.querySelector('.person-role')?.value.trim()
   })).filter(p => p.name);
   showToast(`${CONFIG.peopleRegistry.length} people saved — export config.json to make permanent`, 'success');
+}
+
+// ── SAVED SESSIONS ────────────────────────────────────────────────────────────
+// A "session" is a named snapshot of pre-filled form values for a template.
+// Stored in SAVED_SESSIONS, exported with the main JSON export.
+// Example: "HoA Meeting — ENG — May 2026" pre-fills area=ENG, title, objectives.
+
+let SAVED_SESSIONS = JSON.parse(localStorage.getItem('dpc-saved-sessions') || '[]');
+
+function persistSessions() {
+  localStorage.setItem('dpc-saved-sessions', JSON.stringify(SAVED_SESSIONS));
+}
+
+/**
+ * Save current form state as a named session
+ */
+function saveCurrentAsSession() {
+  const select = document.getElementById('qc-activity-type');
+  const templateId = select?.value;
+  if (!templateId) { showToast('Select a template first', 'error'); return; }
+
+  const name = prompt('Name this session (e.g. "HoA Meeting — ENG — May 2026"):');
+  if (!name?.trim()) return;
+
+  // Collect all current form values
+  const form = document.getElementById('qc-form-container');
+  const values = {};
+  if (form) {
+    form.querySelectorAll('input[id], textarea[id], select[id]').forEach(el => {
+      values[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+    });
+    // Collect checkboxes by name for people picker and tags
+    form.querySelectorAll('input[type="checkbox"][name]').forEach(el => {
+      if (!values[el.name]) values[el.name] = [];
+      if (el.checked) values[el.name].push(el.value);
+    });
+  }
+
+  SAVED_SESSIONS.unshift({
+    id: `session-${Date.now()}`,
+    name: name.trim(),
+    templateId,
+    templateName: CONFIG?.templates?.find(t => t.id === templateId)?.name || templateId,
+    savedAt: new Date().toISOString().slice(0, 16).replace('T', ' '),
+    values
+  });
+
+  persistSessions();
+  renderSavedSessions();
+  showToast(`Session "${name}" saved`, 'success');
+}
+
+/**
+ * Load a saved session back into the form
+ */
+function loadSession(sessionId) {
+  const session = SAVED_SESSIONS.find(s => s.id === sessionId);
+  if (!session) return;
+
+  // Select the template first
+  const select = document.getElementById('qc-activity-type');
+  if (select) {
+    select.value = session.templateId;
+    loadTemplate(session.templateId);
+  }
+
+  // After form renders, fill values
+  setTimeout(() => {
+    const form = document.getElementById('qc-form-container');
+    if (!form) return;
+    Object.entries(session.values).forEach(([key, val]) => {
+      const el = document.getElementById(key);
+      if (el) {
+        if (el.type === 'checkbox') el.checked = !!val;
+        else el.value = val;
+      }
+      // Restore checkbox groups (people, tags)
+      if (Array.isArray(val)) {
+        document.querySelectorAll(`[name="${key}"]`).forEach(cb => {
+          cb.checked = val.includes(cb.value);
+        });
+      }
+    });
+    showToast(`Loaded: ${session.name}`, 'success');
+  }, 150);
+}
+
+function deleteSession(sessionId) {
+  SAVED_SESSIONS = SAVED_SESSIONS.filter(s => s.id !== sessionId);
+  persistSessions();
+  renderSavedSessions();
+  showToast('Session deleted', 'success');
+}
+
+function renderSavedSessions() {
+  const container = document.getElementById('saved-sessions-list');
+  if (!container) return;
+
+  if (!SAVED_SESSIONS.length) {
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--color-slate);font-style:italic;">No saved sessions yet. Fill a form and click "Save as session" to store it for reuse.</p>';
+    return;
+  }
+
+  // Group by template name
+  const groups = {};
+  SAVED_SESSIONS.forEach(s => {
+    if (!groups[s.templateName]) groups[s.templateName] = [];
+    groups[s.templateName].push(s);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([tName, sessions]) => `
+    <div style="margin-bottom:1rem;">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--color-grey);font-weight:600;margin-bottom:.4rem;">${tName}</div>
+      ${sessions.map(s => `
+        <div class="session-card">
+          <div class="session-info">
+            <div class="session-name">${s.name}</div>
+            <div class="session-meta">Saved ${s.savedAt}</div>
+          </div>
+          <div class="session-actions">
+            <button class="btn btn-primary btn-sm" onclick="loadSession('${s.id}')">Load</button>
+            <button class="btn btn-icon btn-sm" onclick="deleteSession('${s.id}')" aria-label="Delete session">✕</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
 }
