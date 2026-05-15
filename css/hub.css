@@ -1169,3 +1169,32 @@ body.dark-mode .prev-actions-list {
 /* ── PEOPLE EDITOR ───────────────────────────────────────────────────────── */
 .person-editor-row td { vertical-align: middle; padding: .3rem .4rem; }
 .person-editor-row input { font-size: .82rem; padding: .35rem .5rem; }
+
+/* ── SAVED SESSIONS ──────────────────────────────────────────────────────── */
+.session-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .6rem .8rem;
+  background: var(--color-grey-bg);
+  border: 1px solid var(--color-grey-light);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: .35rem;
+}
+
+.session-info { flex: 1; min-width: 0; }
+.session-name { font-size: .85rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.session-meta { font-size: .72rem; color: var(--color-slate); margin-top: .1rem; }
+.session-actions { display: flex; gap: .4rem; flex-shrink: 0; }
+
+/* ── TEMPLATE EDITOR — usability improvements ────────────────────────────── */
+/* Show checked webparts prominently, unchecked dimmer */
+.tpl-webpart-row:not(.included) { opacity: .55; }
+.tpl-webpart-row:not(.included):hover { opacity: 1; }
+
+/* Divide checked from unchecked with a visual separator */
+.tpl-webpart-row.included + .tpl-webpart-row:not(.included) {
+  border-top: 2px dashed var(--color-grey-light);
+  margin-top: 2px;
+}
