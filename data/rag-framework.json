@@ -1,0 +1,102 @@
+{
+  "_note": "RAG Framework descriptor wording. Edit in Settings > Framework Editor. Changes apply everywhere immediately.",
+  "levels": [
+    { "id": 1, "label": "Confident",  "colour": "#15803d", "textColour": "#fff", "summary": "Progressing independently. Peer mentoring potential. Case study ready." },
+    { "id": 2, "label": "On Track",   "colour": "#65a30d", "textColour": "#fff", "summary": "Engaged and progressing. Specific gaps identified. Fortnightly coaching." },
+    { "id": 3, "label": "Developing", "colour": "#d97706", "textColour": "#fff", "summary": "Wants to improve, lacks clarity or structure. Weekly coaching + training." },
+    { "id": 4, "label": "Challenged", "colour": "#dc2626", "textColour": "#fff", "summary": "Significant barriers. Intensive support. HoA partnership essential." },
+    { "id": 5, "label": "Urgent",     "colour": "#7f1d1d", "textColour": "#fff", "summary": "Fundamental blockage. VP Quality escalation needed." }
+  ],
+  "dimensions": [
+    {
+      "id": "d1",
+      "name": "Staff Digital Capability & Confidence",
+      "shortName": "Staff Capability",
+      "alignedTo": "ETF DTPF Stages 1–3 (Exploring → Adopting → Leading)",
+      "dataSource": "Jisc Discovery Tool results, 1:1 conversations, Learning Walk observations",
+      "coachingQuestion": "On the Pyramid, where are the teaching staff in this area?",
+      "descriptors": {
+        "1": "Staff use digital tools independently and confidently across all areas of practice. Peer mentoring happens organically. Staff advocate for new tools and share practice. Digital is embedded, not bolted on.",
+        "2": "Staff are engaged and progressing. Most use M365 confidently. Specific tool gaps identified (e.g. CRM, specialist software). Some staff need targeted training. Willingness to develop is high.",
+        "3": "Staff use basic tools but confidence is inconsistent. Some resistance or uncertainty. Digital use is surface-level — PowerPoints and files, not deeper pedagogical integration. Training required.",
+        "4": "Staff confidence is low across the board. Significant knowledge gaps in M365 basics. Some staff actively resistant. Infrastructure or device issues compound the challenge. Intensive 1:1 support needed.",
+        "5": "Staff have minimal or no digital practice. No baseline established. Leadership has not prioritised digital CPD. Structural barriers prevent progress. Escalation to VP Quality required."
+      }
+    },
+    {
+      "id": "d2",
+      "name": "HoA Leadership Understanding & Planning",
+      "shortName": "HoA Leadership",
+      "alignedTo": "Quality cycle, QIP, CPD levers in Quality Handbook",
+      "dataSource": "HoA conversations, QIP review, budget allocation, CPD calendar",
+      "coachingQuestion": "Does the HoA own digital improvement or is it something the DPC does?",
+      "descriptors": {
+        "1": "HoA owns digital strategy. Can articulate specific gaps, has a written plan, tracks progress. Digital is embedded in QIP. CPD budget allocated. Regular check-ins with DL without prompting.",
+        "2": "HoA is engaged and understands the direction. Aware of key gaps. Plan in development. Needs fortnightly coaching to maintain momentum and translate awareness into action.",
+        "3": "HoA sees digital as important but hasn't translated this into a plan. Relies on DPC to drive agenda. Some uncertainty about where to start. Weekly coaching and structured planning needed.",
+        "4": "HoA has limited awareness of digital gaps. Digital not embedded in QIP. No CPD plan. May see digital as 'IT's job'. Needs intensive support and a clear, simple entry point.",
+        "5": "HoA has no digital strategy and no ownership. Digital improvement not prioritised. Structural or relational barriers present. VP Quality conversation needed to establish accountability."
+      }
+    },
+    {
+      "id": "d3",
+      "name": "Digital Skills Assessment & Tracking",
+      "shortName": "Skills Assessment",
+      "alignedTo": "Century Tech EDS diagnostics, specialist skills mapping, Markbook integration",
+      "dataSource": "Century dashboard, HoA specialist skills tracking table, course tracking documentation",
+      "coachingQuestion": "Can you pull a report showing each learner's digital skills starting point and progress?",
+      "descriptors": {
+        "1": "Century Initial Assessment embedded at entry for all learners. Specialist digital skills mapped per course. Progress tracked in Markbook. HoA can produce evidence of digital skills progress on request.",
+        "2": "Century IA used but not consistently. Specialist skills mapping started or in progress. Some progress tracked. Gaps in consistency across staff or courses.",
+        "3": "Awareness of Century and tracking systems. Some use but not embedded. Specialist skills not yet mapped. Tracking is informal or ad hoc. Needs structured approach.",
+        "4": "Little or no use of Century for digital skills baseline. No specialist skills tracking. Staff unsure what to assess or how. Significant gap between current practice and expectation.",
+        "5": "No digital skills assessment or tracking in place. HoA cannot evidence learner digital progress. Not on the radar. Foundational work needed before tracking is possible."
+      }
+    },
+    {
+      "id": "d4",
+      "name": "Digital Curriculum Integration",
+      "shortName": "Curriculum Integration",
+      "alignedTo": "UDL principles, QFT, Digital Learning Pyramid Level 2 (Inclusion)",
+      "dataSource": "Assignment review, Learning Walk observations, feedback on accessible design",
+      "coachingQuestion": "When you look at a unit of work, is digital essential or optional?",
+      "descriptors": {
+        "1": "Digital is embedded in curriculum design. Assignments require digital skills as well as subject skills. UDL principles applied. Resources are accessible by design. AT is offered proactively.",
+        "2": "Digital is used purposefully in most sessions. Some assignment design reflects digital skills. Accessibility is considered but not yet systematic. Good practice visible in pockets.",
+        "3": "Digital is used but often as a delivery tool (slides, files) rather than a learning tool. Assignment design does not yet require or track digital skills. Accessibility is reactive.",
+        "4": "Digital is peripheral. Sessions could happen identically without technology. Assignments don't reference digital skills. Staff unsure how to integrate meaningfully. Training and curriculum redesign needed.",
+        "5": "No evidence of digital curriculum integration. Technology use is incidental or absent. Curriculum design does not account for digital skills development. Foundational redesign required."
+      }
+    },
+    {
+      "id": "d5",
+      "name": "Digital Health — Accessibility & Inclusion",
+      "shortName": "Accessibility Health",
+      "alignedTo": "Learning Without Barriers (thread through all Pyramid levels), WCAG 2.2 AA",
+      "dataSource": "Learning Walks, Digital Health Check observations, learner feedback on accessibility",
+      "coachingQuestion": "Can you see inclusion in action in a learning session?",
+      "descriptors": {
+        "1": "WCAG 2.2 AA practice is the norm. Staff proactively offer AT. Immersive Reader, Live Captions, alt text are standard. Learners know what support is available. Inclusive design is non-negotiable.",
+        "2": "Staff are aware of accessibility tools and use them with some consistency. Accessibility Checker used on most resources. AT offered when asked. Some gaps in proactive practice.",
+        "3": "Some accessibility awareness but practice is inconsistent. Resources not systematically checked. AT not proactively offered. Staff know the tools exist but haven't embedded them.",
+        "4": "Significant accessibility gaps. Resources not accessible by design. AT not offered or not known about by staff. Learners may be experiencing barriers that aren't visible to staff. Urgent Teach-Meet needed.",
+        "5": "No accessible practice visible. Staff unaware of AT options. Resources inaccessible. Learners experiencing digital exclusion. Liz Burkley / Lois Knight partnership and VP escalation required."
+      }
+    },
+    {
+      "id": "d6",
+      "name": "Digital Lead Engagement & Health Checks",
+      "shortName": "DL Engagement",
+      "alignedTo": "Digital Leads Training Plan 2025–27, Health Check framework",
+      "dataSource": "DL engagement conversation, Health Check schedule, peer coaching observations",
+      "coachingQuestion": "Is the DL your eyes and ears in the area, or waiting for guidance?",
+      "descriptors": {
+        "1": "DL is fully identified, trained, and active. Running Health Checks independently. Mentoring peers. Providing weekly updates. Ready to mentor DLs from other areas.",
+        "2": "DL identified and engaged. Attending check-ins. Health Checks starting. Some peer coaching happening. Needs fortnightly support to maintain momentum.",
+        "3": "DL identified but not yet active in Health Checks or peer support. Willing but unclear on role or lacking confidence. Needs structured training and close weekly support.",
+        "4": "DL nominally identified but not functioning in the role. No Health Checks. No peer engagement. May need role clarification or a different person. HoA needs to reinforce the role.",
+        "5": "No DL identified. No engagement. Area has no internal digital champion. Fundamental blocker. HoA conversation essential. Cannot progress without this in place."
+      }
+    }
+  ]
+}
