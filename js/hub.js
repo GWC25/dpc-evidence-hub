@@ -269,7 +269,14 @@ function downloadAreasJSON() {
 function switchSettingsTab(tabId, btn) {
   document.querySelectorAll('.settings-tab-panel').forEach(p => p.style.display = 'none');
   document.querySelectorAll('.settings-tab').forEach(b => {
-    b.classList.remo
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  const panel = document.getElementById('stab-' + tabId);
+  if (panel) panel.style.display = '';
+  if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
+}
+
 // ── TEMPLATE EDITOR (Settings > Templates tab) ───────────────────────────────
 
 // All available webpart IDs with display names for the editor
@@ -647,5 +654,3 @@ function savePeopleToConfig() {
   })).filter(p => p.name);
   showToast(`${CONFIG.peopleRegistry.length} people saved — export config.json to make permanent`, 'success');
 }
-
-// Wire people editor into loadConfig and settings nav
